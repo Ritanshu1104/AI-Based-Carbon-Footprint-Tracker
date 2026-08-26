@@ -1,0 +1,1001 @@
+id,text,activity_label,quantity,unit
+1,I flew 3 km today.,Flight,3,km
+2,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+3,I watched TV for 1 hours.,Electricity,1,hour
+4,I used my computer for 3 hours.,Electricity,3,hour
+5,I went for a 784 km walk.,Walking,784,km
+6,I took a flight covering 502 km.,Flight,502,km
+7,I had a veg lunch today.,Vegetarian Meal,1,meal
+8,I rode my bike for 639 km.,Bike,639,km
+9,I travelled 472 km by bus.,Bus,472,km
+10,I cycled 958 km today.,Bike,958,km
+11,I ate chicken for lunch.,Chicken Meal,1,meal
+12,I had a chicken meal today.,Chicken Meal,1,meal
+13,I travelled 795 km by train.,Train,795,km
+14,I used my car for 405 km today.,Car,405,km
+15,I went for a 901 km walk.,Walking,901,km
+16,I used my computer for 11 hours.,Electricity,11,hour
+17,I ate chicken for lunch.,Chicken Meal,1,meal
+18,I took a flight covering 830 km.,Flight,830,km
+19,I travelled 599 km by train.,Train,599,km
+20,I rode my bike for 822 km.,Bike,822,km
+21,I cycled 913 km today.,Bike,913,km
+22,I travelled 136 km by train.,Train,136,km
+23,I travelled 914 km by car.,Car,914,km
+24,I flew 688 km today.,Flight,688,km
+25,I used the air conditioner for 7 hours.,Electricity,7,hour
+26,I ate chicken for lunch.,Chicken Meal,1,meal
+27,I watched TV for 5 hours.,Electricity,5,hour
+28,I ate chicken for lunch.,Chicken Meal,1,meal
+29,I took a train for 68 km today.,Train,68,km
+30,I had a chicken meal today.,Chicken Meal,1,meal
+31,I rode my bike for 129 km.,Bike,129,km
+32,I travelled 998 km by train.,Train,998,km
+33,I travelled 205 km by bus.,Bus,205,km
+34,I flew 841 km today.,Flight,841,km
+35,I used my car for 228 km today.,Car,228,km
+36,I walked 334 km today.,Walking,334,km
+37,I commuted 959 km using the bus.,Bus,959,km
+38,I took a train for 531 km today.,Train,531,km
+39,I watched TV for 10 hours.,Electricity,10,hour
+40,I took a train for 96 km today.,Train,96,km
+41,I watched TV for 8 hours.,Electricity,8,hour
+42,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+43,I took a flight covering 355 km.,Flight,355,km
+44,I took a train for 635 km today.,Train,635,km
+45,I had a chicken meal today.,Chicken Meal,1,meal
+46,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+47,I took a train for 340 km today.,Train,340,km
+48,I used my computer for 5 hours.,Electricity,5,hour
+49,I went for a 93 km walk.,Walking,93,km
+50,I cycled 691 km today.,Bike,691,km
+51,I travelled 607 km by train.,Train,607,km
+52,I used the air conditioner for 10 hours.,Electricity,10,hour
+53,I took a bus for 759 km.,Bus,759,km
+54,I travelled 380 km by train.,Train,380,km
+55,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+56,I walked 888 km today.,Walking,888,km
+57,I flew 796 km today.,Flight,796,km
+58,I took a train for 830 km today.,Train,830,km
+59,I went for a 981 km walk.,Walking,981,km
+60,I travelled 10 km by car.,Car,10,km
+61,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+62,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+63,I took a train for 707 km today.,Train,707,km
+64,I used the air conditioner for 6 hours.,Electricity,6,hour
+65,I travelled 467 km by train.,Train,467,km
+66,I cycled 223 km today.,Bike,223,km
+67,I took a bus for 905 km.,Bus,905,km
+68,I flew 329 km today.,Flight,329,km
+69,I took a bus for 427 km.,Bus,427,km
+70,I walked 986 km today.,Walking,986,km
+71,I took a flight covering 275 km.,Flight,275,km
+72,I flew 757 km today.,Flight,757,km
+73,I commuted 874 km using the bus.,Bus,874,km
+74,I took a flight covering 497 km.,Flight,497,km
+75,I travelled 561 km by car.,Car,561,km
+76,I took a flight covering 152 km.,Flight,152,km
+77,I took a train for 327 km today.,Train,327,km
+78,I travelled 887 km by car.,Car,887,km
+79,I commuted 316 km using the bus.,Bus,316,km
+80,I had a chicken meal today.,Chicken Meal,1,meal
+81,I took a bus for 44 km.,Bus,44,km
+82,I had a veg lunch today.,Vegetarian Meal,1,meal
+83,I took a bus for 180 km.,Bus,180,km
+84,I went for a 459 km walk.,Walking,459,km
+85,I ate chicken for lunch.,Chicken Meal,1,meal
+86,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+87,I watched TV for 4 hours.,Electricity,4,hour
+88,I used my car for 732 km today.,Car,732,km
+89,I travelled 70 km by car.,Car,70,km
+90,I flew 40 km today.,Flight,40,km
+91,I took a train for 259 km today.,Train,259,km
+92,I travelled 658 km by bus.,Bus,658,km
+93,I had a chicken meal today.,Chicken Meal,1,meal
+94,I used my car for 144 km today.,Car,144,km
+95,I rode my bike for 63 km.,Bike,63,km
+96,I cycled 180 km today.,Bike,180,km
+97,I had a veg lunch today.,Vegetarian Meal,1,meal
+98,I took a flight covering 819 km.,Flight,819,km
+99,I went for a 866 km walk.,Walking,866,km
+100,I ate chicken for lunch.,Chicken Meal,1,meal
+101,I walked 624 km today.,Walking,624,km
+102,I travelled 310 km by bus.,Bus,310,km
+103,I travelled 355 km by train.,Train,355,km
+104,I ate chicken for lunch.,Chicken Meal,1,meal
+105,I walked 923 km today.,Walking,923,km
+106,I used the air conditioner for 12 hours.,Electricity,12,hour
+107,I used the air conditioner for 3 hours.,Electricity,3,hour
+108,I drove my car 930 km to the office.,Car,930,km
+109,I rode my bike for 258 km.,Bike,258,km
+110,I walked 27 km today.,Walking,27,km
+111,I cycled 126 km today.,Bike,126,km
+112,I rode my bike for 312 km.,Bike,312,km
+113,I took a flight covering 289 km.,Flight,289,km
+114,I walked 808 km today.,Walking,808,km
+115,I used the air conditioner for 12 hours.,Electricity,12,hour
+116,I commuted 379 km using the bus.,Bus,379,km
+117,I took a bus for 489 km.,Bus,489,km
+118,I rode my bike for 254 km.,Bike,254,km
+119,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+120,I used my car for 679 km today.,Car,679,km
+121,I ate chicken for lunch.,Chicken Meal,1,meal
+122,I rode my bike for 698 km.,Bike,698,km
+123,I used my computer for 4 hours.,Electricity,4,hour
+124,I used my computer for 4 hours.,Electricity,4,hour
+125,I ate chicken for lunch.,Chicken Meal,1,meal
+126,I travelled 831 km by train.,Train,831,km
+127,I walked 335 km today.,Walking,335,km
+128,I used my computer for 2 hours.,Electricity,2,hour
+129,I had a veg lunch today.,Vegetarian Meal,1,meal
+130,I rode my bike for 823 km.,Bike,823,km
+131,I travelled 773 km by train.,Train,773,km
+132,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+133,I flew 583 km today.,Flight,583,km
+134,I flew 758 km today.,Flight,758,km
+135,I ate chicken for lunch.,Chicken Meal,1,meal
+136,I had a chicken meal today.,Chicken Meal,1,meal
+137,I drove my car 441 km to the office.,Car,441,km
+138,I travelled 17 km by bus.,Bus,17,km
+139,I ate chicken for lunch.,Chicken Meal,1,meal
+140,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+141,I rode my bike for 457 km.,Bike,457,km
+142,I took a train for 616 km today.,Train,616,km
+143,I commuted 200 km using the bus.,Bus,200,km
+144,I flew 59 km today.,Flight,59,km
+145,I flew 983 km today.,Flight,983,km
+146,I flew 214 km today.,Flight,214,km
+147,I travelled 426 km by train.,Train,426,km
+148,I walked 94 km today.,Walking,94,km
+149,I travelled 127 km by train.,Train,127,km
+150,I ate chicken for lunch.,Chicken Meal,1,meal
+151,I took a flight covering 304 km.,Flight,304,km
+152,I travelled 607 km by train.,Train,607,km
+153,I took a bus for 320 km.,Bus,320,km
+154,I watched TV for 11 hours.,Electricity,11,hour
+155,I had a chicken meal today.,Chicken Meal,1,meal
+156,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+157,I travelled 243 km by bus.,Bus,243,km
+158,I watched TV for 2 hours.,Electricity,2,hour
+159,I walked 166 km today.,Walking,166,km
+160,I went for a 126 km walk.,Walking,126,km
+161,I travelled 910 km by train.,Train,910,km
+162,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+163,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+164,I cycled 273 km today.,Bike,273,km
+165,I travelled 318 km by train.,Train,318,km
+166,I used my computer for 8 hours.,Electricity,8,hour
+167,I cycled 725 km today.,Bike,725,km
+168,I drove my car 188 km to the office.,Car,188,km
+169,I watched TV for 8 hours.,Electricity,8,hour
+170,I used the air conditioner for 12 hours.,Electricity,12,hour
+171,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+172,I flew 895 km today.,Flight,895,km
+173,I travelled 487 km by car.,Car,487,km
+174,I had a veg lunch today.,Vegetarian Meal,1,meal
+175,I rode my bike for 197 km.,Bike,197,km
+176,I had a veg lunch today.,Vegetarian Meal,1,meal
+177,I used the air conditioner for 12 hours.,Electricity,12,hour
+178,I travelled 227 km by bus.,Bus,227,km
+179,I commuted 752 km using the bus.,Bus,752,km
+180,I walked 674 km today.,Walking,674,km
+181,I used the air conditioner for 9 hours.,Electricity,9,hour
+182,I cycled 164 km today.,Bike,164,km
+183,I travelled 85 km by car.,Car,85,km
+184,I had a veg lunch today.,Vegetarian Meal,1,meal
+185,I ate chicken for lunch.,Chicken Meal,1,meal
+186,I flew 119 km today.,Flight,119,km
+187,I took a train for 814 km today.,Train,814,km
+188,I had a chicken meal today.,Chicken Meal,1,meal
+189,I went for a 59 km walk.,Walking,59,km
+190,I ate chicken for lunch.,Chicken Meal,1,meal
+191,I flew 8 km today.,Flight,8,km
+192,I rode my bike for 794 km.,Bike,794,km
+193,I took a train for 209 km today.,Train,209,km
+194,I commuted 916 km using the bus.,Bus,916,km
+195,I rode my bike for 64 km.,Bike,64,km
+196,I took a train for 585 km today.,Train,585,km
+197,I had a chicken meal today.,Chicken Meal,1,meal
+198,I went for a 861 km walk.,Walking,861,km
+199,I walked 661 km today.,Walking,661,km
+200,I took a flight covering 520 km.,Flight,520,km
+201,I took a flight covering 433 km.,Flight,433,km
+202,I had a chicken meal today.,Chicken Meal,1,meal
+203,I travelled 730 km by train.,Train,730,km
+204,I ate chicken for lunch.,Chicken Meal,1,meal
+205,I used the air conditioner for 9 hours.,Electricity,9,hour
+206,I ate chicken for lunch.,Chicken Meal,1,meal
+207,I travelled 240 km by car.,Car,240,km
+208,I ate chicken for lunch.,Chicken Meal,1,meal
+209,I flew 742 km today.,Flight,742,km
+210,I ate chicken for lunch.,Chicken Meal,1,meal
+211,I used the air conditioner for 3 hours.,Electricity,3,hour
+212,I flew 429 km today.,Flight,429,km
+213,I used my computer for 10 hours.,Electricity,10,hour
+214,I took a bus for 778 km.,Bus,778,km
+215,I had a veg lunch today.,Vegetarian Meal,1,meal
+216,I cycled 812 km today.,Bike,812,km
+217,I took a flight covering 280 km.,Flight,280,km
+218,I had a chicken meal today.,Chicken Meal,1,meal
+219,I cycled 492 km today.,Bike,492,km
+220,I went for a 456 km walk.,Walking,456,km
+221,I rode my bike for 47 km.,Bike,47,km
+222,I travelled 483 km by bus.,Bus,483,km
+223,I used the air conditioner for 3 hours.,Electricity,3,hour
+224,I cycled 37 km today.,Bike,37,km
+225,I cycled 51 km today.,Bike,51,km
+226,I rode my bike for 739 km.,Bike,739,km
+227,I took a bus for 181 km.,Bus,181,km
+228,I had a chicken meal today.,Chicken Meal,1,meal
+229,I walked 27 km today.,Walking,27,km
+230,I travelled 822 km by train.,Train,822,km
+231,I had a chicken meal today.,Chicken Meal,1,meal
+232,I ate chicken for lunch.,Chicken Meal,1,meal
+233,I commuted 856 km using the bus.,Bus,856,km
+234,I took a bus for 749 km.,Bus,749,km
+235,I took a train for 875 km today.,Train,875,km
+236,I had a chicken meal today.,Chicken Meal,1,meal
+237,I travelled 245 km by train.,Train,245,km
+238,I commuted 839 km using the bus.,Bus,839,km
+239,I took a train for 173 km today.,Train,173,km
+240,I cycled 2 km today.,Bike,2,km
+241,I travelled 744 km by train.,Train,744,km
+242,I travelled 776 km by car.,Car,776,km
+243,I travelled 137 km by bus.,Bus,137,km
+244,I drove my car 47 km to the office.,Car,47,km
+245,I had a veg lunch today.,Vegetarian Meal,1,meal
+246,I travelled 905 km by train.,Train,905,km
+247,I had a veg lunch today.,Vegetarian Meal,1,meal
+248,I had a chicken meal today.,Chicken Meal,1,meal
+249,I used the air conditioner for 1 hours.,Electricity,1,hour
+250,I watched TV for 5 hours.,Electricity,5,hour
+251,I used the air conditioner for 4 hours.,Electricity,4,hour
+252,I commuted 907 km using the bus.,Bus,907,km
+253,I used my car for 314 km today.,Car,314,km
+254,I had a chicken meal today.,Chicken Meal,1,meal
+255,I had a chicken meal today.,Chicken Meal,1,meal
+256,I took a bus for 165 km.,Bus,165,km
+257,I flew 370 km today.,Flight,370,km
+258,I travelled 526 km by car.,Car,526,km
+259,I travelled 225 km by car.,Car,225,km
+260,I had a veg lunch today.,Vegetarian Meal,1,meal
+261,I had a veg lunch today.,Vegetarian Meal,1,meal
+262,I travelled 601 km by train.,Train,601,km
+263,I travelled 69 km by train.,Train,69,km
+264,I had a veg lunch today.,Vegetarian Meal,1,meal
+265,I had a chicken meal today.,Chicken Meal,1,meal
+266,I took a train for 978 km today.,Train,978,km
+267,I travelled 542 km by train.,Train,542,km
+268,I had a veg lunch today.,Vegetarian Meal,1,meal
+269,I ate chicken for lunch.,Chicken Meal,1,meal
+270,I took a flight covering 714 km.,Flight,714,km
+271,I travelled 469 km by train.,Train,469,km
+272,I took a flight covering 941 km.,Flight,941,km
+273,I took a flight covering 588 km.,Flight,588,km
+274,I rode my bike for 274 km.,Bike,274,km
+275,I ate chicken for lunch.,Chicken Meal,1,meal
+276,I used my computer for 7 hours.,Electricity,7,hour
+277,I travelled 168 km by car.,Car,168,km
+278,I took a bus for 316 km.,Bus,316,km
+279,I watched TV for 12 hours.,Electricity,12,hour
+280,I used my computer for 8 hours.,Electricity,8,hour
+281,I walked 174 km today.,Walking,174,km
+282,I went for a 273 km walk.,Walking,273,km
+283,I went for a 259 km walk.,Walking,259,km
+284,I travelled 467 km by bus.,Bus,467,km
+285,I ate chicken for lunch.,Chicken Meal,1,meal
+286,I rode my bike for 598 km.,Bike,598,km
+287,I travelled 959 km by bus.,Bus,959,km
+288,I took a flight covering 438 km.,Flight,438,km
+289,I flew 288 km today.,Flight,288,km
+290,I drove my car 397 km to the office.,Car,397,km
+291,I walked 681 km today.,Walking,681,km
+292,I went for a 892 km walk.,Walking,892,km
+293,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+294,I used the air conditioner for 11 hours.,Electricity,11,hour
+295,I took a bus for 186 km.,Bus,186,km
+296,I had a chicken meal today.,Chicken Meal,1,meal
+297,I flew 343 km today.,Flight,343,km
+298,I commuted 400 km using the bus.,Bus,400,km
+299,I ate chicken for lunch.,Chicken Meal,1,meal
+300,I commuted 409 km using the bus.,Bus,409,km
+301,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+302,I commuted 136 km using the bus.,Bus,136,km
+303,I ate chicken for lunch.,Chicken Meal,1,meal
+304,I used my car for 727 km today.,Car,727,km
+305,I had a chicken meal today.,Chicken Meal,1,meal
+306,I used my computer for 1 hours.,Electricity,1,hour
+307,I commuted 724 km using the bus.,Bus,724,km
+308,I travelled 754 km by bus.,Bus,754,km
+309,I ate chicken for lunch.,Chicken Meal,1,meal
+310,I cycled 628 km today.,Bike,628,km
+311,I rode my bike for 205 km.,Bike,205,km
+312,I travelled 222 km by bus.,Bus,222,km
+313,I had a chicken meal today.,Chicken Meal,1,meal
+314,I ate chicken for lunch.,Chicken Meal,1,meal
+315,I drove my car 663 km to the office.,Car,663,km
+316,I rode my bike for 764 km.,Bike,764,km
+317,I took a train for 552 km today.,Train,552,km
+318,I travelled 70 km by train.,Train,70,km
+319,I took a train for 115 km today.,Train,115,km
+320,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+321,I took a train for 404 km today.,Train,404,km
+322,I flew 171 km today.,Flight,171,km
+323,I used my car for 738 km today.,Car,738,km
+324,I drove my car 666 km to the office.,Car,666,km
+325,I used my car for 420 km today.,Car,420,km
+326,I travelled 506 km by bus.,Bus,506,km
+327,I commuted 569 km using the bus.,Bus,569,km
+328,I went for a 227 km walk.,Walking,227,km
+329,I had a veg lunch today.,Vegetarian Meal,1,meal
+330,I flew 824 km today.,Flight,824,km
+331,I travelled 538 km by car.,Car,538,km
+332,I had a chicken meal today.,Chicken Meal,1,meal
+333,I had a veg lunch today.,Vegetarian Meal,1,meal
+334,I walked 261 km today.,Walking,261,km
+335,I travelled 572 km by car.,Car,572,km
+336,I cycled 950 km today.,Bike,950,km
+337,I travelled 132 km by bus.,Bus,132,km
+338,I walked 85 km today.,Walking,85,km
+339,I commuted 872 km using the bus.,Bus,872,km
+340,I walked 392 km today.,Walking,392,km
+341,I cycled 728 km today.,Bike,728,km
+342,I had a chicken meal today.,Chicken Meal,1,meal
+343,I had a chicken meal today.,Chicken Meal,1,meal
+344,I rode my bike for 707 km.,Bike,707,km
+345,I rode my bike for 933 km.,Bike,933,km
+346,I flew 848 km today.,Flight,848,km
+347,I watched TV for 11 hours.,Electricity,11,hour
+348,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+349,I travelled 929 km by car.,Car,929,km
+350,I travelled 335 km by train.,Train,335,km
+351,I cycled 384 km today.,Bike,384,km
+352,I walked 919 km today.,Walking,919,km
+353,I drove my car 714 km to the office.,Car,714,km
+354,I took a flight covering 398 km.,Flight,398,km
+355,I had a veg lunch today.,Vegetarian Meal,1,meal
+356,I took a bus for 116 km.,Bus,116,km
+357,I drove my car 36 km to the office.,Car,36,km
+358,I rode my bike for 266 km.,Bike,266,km
+359,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+360,I cycled 738 km today.,Bike,738,km
+361,I drove my car 525 km to the office.,Car,525,km
+362,I watched TV for 3 hours.,Electricity,3,hour
+363,I travelled 388 km by car.,Car,388,km
+364,I travelled 157 km by car.,Car,157,km
+365,I ate chicken for lunch.,Chicken Meal,1,meal
+366,I used my computer for 6 hours.,Electricity,6,hour
+367,I used the air conditioner for 6 hours.,Electricity,6,hour
+368,I watched TV for 1 hours.,Electricity,1,hour
+369,I took a train for 894 km today.,Train,894,km
+370,I walked 599 km today.,Walking,599,km
+371,I ate chicken for lunch.,Chicken Meal,1,meal
+372,I travelled 62 km by bus.,Bus,62,km
+373,I went for a 183 km walk.,Walking,183,km
+374,I went for a 29 km walk.,Walking,29,km
+375,I had a veg lunch today.,Vegetarian Meal,1,meal
+376,I cycled 376 km today.,Bike,376,km
+377,I had a chicken meal today.,Chicken Meal,1,meal
+378,I walked 170 km today.,Walking,170,km
+379,I flew 120 km today.,Flight,120,km
+380,I used my car for 765 km today.,Car,765,km
+381,I travelled 581 km by train.,Train,581,km
+382,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+383,I walked 882 km today.,Walking,882,km
+384,I used my computer for 10 hours.,Electricity,10,hour
+385,I drove my car 51 km to the office.,Car,51,km
+386,I walked 237 km today.,Walking,237,km
+387,I commuted 880 km using the bus.,Bus,880,km
+388,I used my computer for 3 hours.,Electricity,3,hour
+389,I walked 257 km today.,Walking,257,km
+390,I drove my car 998 km to the office.,Car,998,km
+391,I took a flight covering 164 km.,Flight,164,km
+392,I rode my bike for 529 km.,Bike,529,km
+393,I went for a 678 km walk.,Walking,678,km
+394,I had a chicken meal today.,Chicken Meal,1,meal
+395,I travelled 247 km by bus.,Bus,247,km
+396,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+397,I flew 74 km today.,Flight,74,km
+398,I used my car for 452 km today.,Car,452,km
+399,I ate chicken for lunch.,Chicken Meal,1,meal
+400,I rode my bike for 197 km.,Bike,197,km
+401,I had a veg lunch today.,Vegetarian Meal,1,meal
+402,I commuted 992 km using the bus.,Bus,992,km
+403,I took a train for 186 km today.,Train,186,km
+404,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+405,I used my computer for 6 hours.,Electricity,6,hour
+406,I rode my bike for 957 km.,Bike,957,km
+407,I went for a 798 km walk.,Walking,798,km
+408,I went for a 199 km walk.,Walking,199,km
+409,I went for a 632 km walk.,Walking,632,km
+410,I rode my bike for 624 km.,Bike,624,km
+411,I took a train for 637 km today.,Train,637,km
+412,I had a veg lunch today.,Vegetarian Meal,1,meal
+413,I drove my car 768 km to the office.,Car,768,km
+414,I watched TV for 7 hours.,Electricity,7,hour
+415,I used the air conditioner for 9 hours.,Electricity,9,hour
+416,I travelled 785 km by train.,Train,785,km
+417,I rode my bike for 431 km.,Bike,431,km
+418,I flew 780 km today.,Flight,780,km
+419,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+420,I had a veg lunch today.,Vegetarian Meal,1,meal
+421,I walked 817 km today.,Walking,817,km
+422,I rode my bike for 238 km.,Bike,238,km
+423,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+424,I went for a 828 km walk.,Walking,828,km
+425,I took a flight covering 507 km.,Flight,507,km
+426,I used my computer for 11 hours.,Electricity,11,hour
+427,I used my computer for 2 hours.,Electricity,2,hour
+428,I took a bus for 417 km.,Bus,417,km
+429,I rode my bike for 12 km.,Bike,12,km
+430,I had a veg lunch today.,Vegetarian Meal,1,meal
+431,I had a chicken meal today.,Chicken Meal,1,meal
+432,I used the air conditioner for 2 hours.,Electricity,2,hour
+433,I walked 159 km today.,Walking,159,km
+434,I went for a 147 km walk.,Walking,147,km
+435,I used my computer for 2 hours.,Electricity,2,hour
+436,I walked 478 km today.,Walking,478,km
+437,I travelled 73 km by train.,Train,73,km
+438,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+439,I took a flight covering 384 km.,Flight,384,km
+440,I had a veg lunch today.,Vegetarian Meal,1,meal
+441,I had a chicken meal today.,Chicken Meal,1,meal
+442,I had a veg lunch today.,Vegetarian Meal,1,meal
+443,I ate chicken for lunch.,Chicken Meal,1,meal
+444,I had a veg lunch today.,Vegetarian Meal,1,meal
+445,I used the air conditioner for 1 hours.,Electricity,1,hour
+446,I used the air conditioner for 8 hours.,Electricity,8,hour
+447,I commuted 639 km using the bus.,Bus,639,km
+448,I went for a 537 km walk.,Walking,537,km
+449,I rode my bike for 375 km.,Bike,375,km
+450,I rode my bike for 236 km.,Bike,236,km
+451,I used my computer for 12 hours.,Electricity,12,hour
+452,I took a train for 293 km today.,Train,293,km
+453,I rode my bike for 282 km.,Bike,282,km
+454,I took a flight covering 83 km.,Flight,83,km
+455,I drove my car 80 km to the office.,Car,80,km
+456,I went for a 972 km walk.,Walking,972,km
+457,I watched TV for 4 hours.,Electricity,4,hour
+458,I went for a 149 km walk.,Walking,149,km
+459,I had a chicken meal today.,Chicken Meal,1,meal
+460,I took a train for 104 km today.,Train,104,km
+461,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+462,I took a bus for 395 km.,Bus,395,km
+463,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+464,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+465,I went for a 326 km walk.,Walking,326,km
+466,I cycled 166 km today.,Bike,166,km
+467,I took a train for 751 km today.,Train,751,km
+468,I took a flight covering 227 km.,Flight,227,km
+469,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+470,I took a bus for 641 km.,Bus,641,km
+471,I took a bus for 478 km.,Bus,478,km
+472,I travelled 864 km by train.,Train,864,km
+473,I cycled 482 km today.,Bike,482,km
+474,I used my car for 195 km today.,Car,195,km
+475,I had a chicken meal today.,Chicken Meal,1,meal
+476,I travelled 55 km by train.,Train,55,km
+477,I watched TV for 6 hours.,Electricity,6,hour
+478,I flew 948 km today.,Flight,948,km
+479,I watched TV for 8 hours.,Electricity,8,hour
+480,I had a veg lunch today.,Vegetarian Meal,1,meal
+481,I had a chicken meal today.,Chicken Meal,1,meal
+482,I travelled 181 km by train.,Train,181,km
+483,I travelled 733 km by car.,Car,733,km
+484,I commuted 695 km using the bus.,Bus,695,km
+485,I took a bus for 859 km.,Bus,859,km
+486,I commuted 689 km using the bus.,Bus,689,km
+487,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+488,I travelled 170 km by car.,Car,170,km
+489,I went for a 475 km walk.,Walking,475,km
+490,I travelled 408 km by car.,Car,408,km
+491,I took a bus for 430 km.,Bus,430,km
+492,I travelled 233 km by train.,Train,233,km
+493,I flew 224 km today.,Flight,224,km
+494,I drove my car 42 km to the office.,Car,42,km
+495,I walked 211 km today.,Walking,211,km
+496,I took a flight covering 278 km.,Flight,278,km
+497,I cycled 529 km today.,Bike,529,km
+498,I had a veg lunch today.,Vegetarian Meal,1,meal
+499,I went for a 928 km walk.,Walking,928,km
+500,I travelled 312 km by bus.,Bus,312,km
+501,I cycled 596 km today.,Bike,596,km
+502,I took a flight covering 855 km.,Flight,855,km
+503,I travelled 35 km by car.,Car,35,km
+504,I watched TV for 2 hours.,Electricity,2,hour
+505,I rode my bike for 376 km.,Bike,376,km
+506,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+507,I walked 632 km today.,Walking,632,km
+508,I rode my bike for 440 km.,Bike,440,km
+509,I used my car for 451 km today.,Car,451,km
+510,I used the air conditioner for 3 hours.,Electricity,3,hour
+511,I used my computer for 10 hours.,Electricity,10,hour
+512,I rode my bike for 770 km.,Bike,770,km
+513,I ate chicken for lunch.,Chicken Meal,1,meal
+514,I rode my bike for 638 km.,Bike,638,km
+515,I used my car for 645 km today.,Car,645,km
+516,I used my car for 948 km today.,Car,948,km
+517,I used the air conditioner for 10 hours.,Electricity,10,hour
+518,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+519,I used the air conditioner for 8 hours.,Electricity,8,hour
+520,I ate chicken for lunch.,Chicken Meal,1,meal
+521,I travelled 988 km by bus.,Bus,988,km
+522,I travelled 51 km by car.,Car,51,km
+523,I had a chicken meal today.,Chicken Meal,1,meal
+524,I had a chicken meal today.,Chicken Meal,1,meal
+525,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+526,I went for a 7 km walk.,Walking,7,km
+527,I took a flight covering 383 km.,Flight,383,km
+528,I drove my car 551 km to the office.,Car,551,km
+529,I ate chicken for lunch.,Chicken Meal,1,meal
+530,I had a chicken meal today.,Chicken Meal,1,meal
+531,I travelled 808 km by car.,Car,808,km
+532,I rode my bike for 525 km.,Bike,525,km
+533,I had a chicken meal today.,Chicken Meal,1,meal
+534,I rode my bike for 466 km.,Bike,466,km
+535,I took a flight covering 932 km.,Flight,932,km
+536,I had a chicken meal today.,Chicken Meal,1,meal
+537,I cycled 758 km today.,Bike,758,km
+538,I cycled 723 km today.,Bike,723,km
+539,I travelled 700 km by bus.,Bus,700,km
+540,I travelled 746 km by train.,Train,746,km
+541,I rode my bike for 658 km.,Bike,658,km
+542,I used the air conditioner for 12 hours.,Electricity,12,hour
+543,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+544,I flew 820 km today.,Flight,820,km
+545,I took a train for 865 km today.,Train,865,km
+546,I had a chicken meal today.,Chicken Meal,1,meal
+547,I walked 717 km today.,Walking,717,km
+548,I travelled 671 km by train.,Train,671,km
+549,I cycled 641 km today.,Bike,641,km
+550,I travelled 750 km by car.,Car,750,km
+551,I cycled 147 km today.,Bike,147,km
+552,I took a flight covering 951 km.,Flight,951,km
+553,I took a bus for 443 km.,Bus,443,km
+554,I cycled 921 km today.,Bike,921,km
+555,I used my car for 187 km today.,Car,187,km
+556,I rode my bike for 268 km.,Bike,268,km
+557,I used my computer for 6 hours.,Electricity,6,hour
+558,I rode my bike for 255 km.,Bike,255,km
+559,I flew 284 km today.,Flight,284,km
+560,I flew 95 km today.,Flight,95,km
+561,I had a veg lunch today.,Vegetarian Meal,1,meal
+562,I travelled 523 km by train.,Train,523,km
+563,I had a veg lunch today.,Vegetarian Meal,1,meal
+564,I travelled 255 km by train.,Train,255,km
+565,I travelled 120 km by train.,Train,120,km
+566,I took a flight covering 166 km.,Flight,166,km
+567,I travelled 108 km by car.,Car,108,km
+568,I travelled 588 km by bus.,Bus,588,km
+569,I took a bus for 768 km.,Bus,768,km
+570,I walked 204 km today.,Walking,204,km
+571,I ate chicken for lunch.,Chicken Meal,1,meal
+572,I rode my bike for 526 km.,Bike,526,km
+573,I cycled 455 km today.,Bike,455,km
+574,I took a flight covering 685 km.,Flight,685,km
+575,I went for a 40 km walk.,Walking,40,km
+576,I cycled 686 km today.,Bike,686,km
+577,I travelled 915 km by train.,Train,915,km
+578,I drove my car 893 km to the office.,Car,893,km
+579,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+580,I had a chicken meal today.,Chicken Meal,1,meal
+581,I flew 611 km today.,Flight,611,km
+582,I took a train for 528 km today.,Train,528,km
+583,I travelled 852 km by train.,Train,852,km
+584,I had a chicken meal today.,Chicken Meal,1,meal
+585,I used my computer for 12 hours.,Electricity,12,hour
+586,I flew 589 km today.,Flight,589,km
+587,I walked 941 km today.,Walking,941,km
+588,I flew 167 km today.,Flight,167,km
+589,I travelled 976 km by bus.,Bus,976,km
+590,I took a bus for 703 km.,Bus,703,km
+591,I ate chicken for lunch.,Chicken Meal,1,meal
+592,I took a flight covering 643 km.,Flight,643,km
+593,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+594,I travelled 558 km by train.,Train,558,km
+595,I took a bus for 723 km.,Bus,723,km
+596,I took a bus for 74 km.,Bus,74,km
+597,I cycled 769 km today.,Bike,769,km
+598,I ate chicken for lunch.,Chicken Meal,1,meal
+599,I took a train for 304 km today.,Train,304,km
+600,I cycled 853 km today.,Bike,853,km
+601,I had a chicken meal today.,Chicken Meal,1,meal
+602,I watched TV for 4 hours.,Electricity,4,hour
+603,I went for a 304 km walk.,Walking,304,km
+604,I took a bus for 632 km.,Bus,632,km
+605,I took a flight covering 704 km.,Flight,704,km
+606,I had a chicken meal today.,Chicken Meal,1,meal
+607,I took a train for 480 km today.,Train,480,km
+608,I rode my bike for 751 km.,Bike,751,km
+609,I took a train for 182 km today.,Train,182,km
+610,I went for a 767 km walk.,Walking,767,km
+611,I took a bus for 887 km.,Bus,887,km
+612,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+613,I used the air conditioner for 11 hours.,Electricity,11,hour
+614,I travelled 862 km by car.,Car,862,km
+615,I had a veg lunch today.,Vegetarian Meal,1,meal
+616,I drove my car 779 km to the office.,Car,779,km
+617,I watched TV for 7 hours.,Electricity,7,hour
+618,I commuted 342 km using the bus.,Bus,342,km
+619,I had a veg lunch today.,Vegetarian Meal,1,meal
+620,I flew 475 km today.,Flight,475,km
+621,I travelled 533 km by train.,Train,533,km
+622,I travelled 260 km by train.,Train,260,km
+623,I commuted 136 km using the bus.,Bus,136,km
+624,I took a train for 519 km today.,Train,519,km
+625,I travelled 934 km by bus.,Bus,934,km
+626,I walked 523 km today.,Walking,523,km
+627,I flew 85 km today.,Flight,85,km
+628,I took a flight covering 650 km.,Flight,650,km
+629,I had a chicken meal today.,Chicken Meal,1,meal
+630,I travelled 333 km by train.,Train,333,km
+631,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+632,I used my car for 853 km today.,Car,853,km
+633,I travelled 905 km by train.,Train,905,km
+634,I flew 696 km today.,Flight,696,km
+635,I ate chicken for lunch.,Chicken Meal,1,meal
+636,I cycled 193 km today.,Bike,193,km
+637,I took a flight covering 988 km.,Flight,988,km
+638,I flew 607 km today.,Flight,607,km
+639,I used the air conditioner for 1 hours.,Electricity,1,hour
+640,I travelled 864 km by bus.,Bus,864,km
+641,I used my computer for 11 hours.,Electricity,11,hour
+642,I took a train for 738 km today.,Train,738,km
+643,I had a chicken meal today.,Chicken Meal,1,meal
+644,I walked 402 km today.,Walking,402,km
+645,I travelled 330 km by bus.,Bus,330,km
+646,I travelled 719 km by train.,Train,719,km
+647,I travelled 980 km by bus.,Bus,980,km
+648,I travelled 526 km by train.,Train,526,km
+649,I used my computer for 6 hours.,Electricity,6,hour
+650,I travelled 342 km by bus.,Bus,342,km
+651,I travelled 63 km by car.,Car,63,km
+652,I travelled 5 km by bus.,Bus,5,km
+653,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+654,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+655,I had a chicken meal today.,Chicken Meal,1,meal
+656,I rode my bike for 434 km.,Bike,434,km
+657,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+658,I had a veg lunch today.,Vegetarian Meal,1,meal
+659,I had a veg lunch today.,Vegetarian Meal,1,meal
+660,I commuted 611 km using the bus.,Bus,611,km
+661,I cycled 938 km today.,Bike,938,km
+662,I used my car for 406 km today.,Car,406,km
+663,I commuted 574 km using the bus.,Bus,574,km
+664,I commuted 179 km using the bus.,Bus,179,km
+665,I went for a 870 km walk.,Walking,870,km
+666,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+667,I had a chicken meal today.,Chicken Meal,1,meal
+668,I went for a 548 km walk.,Walking,548,km
+669,I watched TV for 4 hours.,Electricity,4,hour
+670,I rode my bike for 210 km.,Bike,210,km
+671,I used the air conditioner for 4 hours.,Electricity,4,hour
+672,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+673,I drove my car 779 km to the office.,Car,779,km
+674,I commuted 759 km using the bus.,Bus,759,km
+675,I walked 189 km today.,Walking,189,km
+676,I took a flight covering 269 km.,Flight,269,km
+677,I ate chicken for lunch.,Chicken Meal,1,meal
+678,I rode my bike for 832 km.,Bike,832,km
+679,I had a veg lunch today.,Vegetarian Meal,1,meal
+680,I took a bus for 661 km.,Bus,661,km
+681,I took a flight covering 736 km.,Flight,736,km
+682,I took a bus for 830 km.,Bus,830,km
+683,I travelled 193 km by bus.,Bus,193,km
+684,I had a chicken meal today.,Chicken Meal,1,meal
+685,I cycled 757 km today.,Bike,757,km
+686,I took a flight covering 804 km.,Flight,804,km
+687,I rode my bike for 47 km.,Bike,47,km
+688,I had a veg lunch today.,Vegetarian Meal,1,meal
+689,I had a chicken meal today.,Chicken Meal,1,meal
+690,I used my computer for 11 hours.,Electricity,11,hour
+691,I used the air conditioner for 2 hours.,Electricity,2,hour
+692,I drove my car 81 km to the office.,Car,81,km
+693,I flew 569 km today.,Flight,569,km
+694,I rode my bike for 635 km.,Bike,635,km
+695,I took a train for 254 km today.,Train,254,km
+696,I travelled 263 km by train.,Train,263,km
+697,I flew 261 km today.,Flight,261,km
+698,I ate chicken for lunch.,Chicken Meal,1,meal
+699,I ate chicken for lunch.,Chicken Meal,1,meal
+700,I used my computer for 4 hours.,Electricity,4,hour
+701,I took a flight covering 325 km.,Flight,325,km
+702,I took a train for 147 km today.,Train,147,km
+703,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+704,I flew 43 km today.,Flight,43,km
+705,I travelled 501 km by train.,Train,501,km
+706,I drove my car 11 km to the office.,Car,11,km
+707,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+708,I cycled 309 km today.,Bike,309,km
+709,I had a veg lunch today.,Vegetarian Meal,1,meal
+710,I used my car for 92 km today.,Car,92,km
+711,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+712,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+713,I used the air conditioner for 10 hours.,Electricity,10,hour
+714,I travelled 553 km by train.,Train,553,km
+715,I had a chicken meal today.,Chicken Meal,1,meal
+716,I went for a 487 km walk.,Walking,487,km
+717,I had a chicken meal today.,Chicken Meal,1,meal
+718,I went for a 585 km walk.,Walking,585,km
+719,I took a train for 695 km today.,Train,695,km
+720,I ate chicken for lunch.,Chicken Meal,1,meal
+721,I used the air conditioner for 7 hours.,Electricity,7,hour
+722,I took a bus for 900 km.,Bus,900,km
+723,I had a chicken meal today.,Chicken Meal,1,meal
+724,I had a chicken meal today.,Chicken Meal,1,meal
+725,I rode my bike for 878 km.,Bike,878,km
+726,I used my car for 752 km today.,Car,752,km
+727,I travelled 782 km by bus.,Bus,782,km
+728,I walked 149 km today.,Walking,149,km
+729,I walked 605 km today.,Walking,605,km
+730,I used my car for 182 km today.,Car,182,km
+731,I walked 46 km today.,Walking,46,km
+732,I had a veg lunch today.,Vegetarian Meal,1,meal
+733,I flew 24 km today.,Flight,24,km
+734,I went for a 392 km walk.,Walking,392,km
+735,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+736,I had a veg lunch today.,Vegetarian Meal,1,meal
+737,I watched TV for 12 hours.,Electricity,12,hour
+738,I travelled 742 km by car.,Car,742,km
+739,I used my computer for 1 hours.,Electricity,1,hour
+740,I cycled 177 km today.,Bike,177,km
+741,I took a train for 380 km today.,Train,380,km
+742,I went for a 584 km walk.,Walking,584,km
+743,I used my car for 872 km today.,Car,872,km
+744,I went for a 697 km walk.,Walking,697,km
+745,I walked 546 km today.,Walking,546,km
+746,I took a train for 324 km today.,Train,324,km
+747,I commuted 811 km using the bus.,Bus,811,km
+748,I cycled 677 km today.,Bike,677,km
+749,I commuted 381 km using the bus.,Bus,381,km
+750,I commuted 626 km using the bus.,Bus,626,km
+751,I took a train for 280 km today.,Train,280,km
+752,I took a train for 472 km today.,Train,472,km
+753,I took a train for 826 km today.,Train,826,km
+754,I used my car for 264 km today.,Car,264,km
+755,I took a bus for 881 km.,Bus,881,km
+756,I rode my bike for 687 km.,Bike,687,km
+757,I cycled 802 km today.,Bike,802,km
+758,I travelled 539 km by bus.,Bus,539,km
+759,I cycled 372 km today.,Bike,372,km
+760,I travelled 196 km by car.,Car,196,km
+761,I walked 251 km today.,Walking,251,km
+762,I took a flight covering 891 km.,Flight,891,km
+763,I travelled 349 km by car.,Car,349,km
+764,I took a flight covering 355 km.,Flight,355,km
+765,I used my car for 788 km today.,Car,788,km
+766,I used my car for 843 km today.,Car,843,km
+767,I travelled 827 km by bus.,Bus,827,km
+768,I used the air conditioner for 6 hours.,Electricity,6,hour
+769,I flew 906 km today.,Flight,906,km
+770,I commuted 162 km using the bus.,Bus,162,km
+771,I travelled 359 km by train.,Train,359,km
+772,I ate chicken for lunch.,Chicken Meal,1,meal
+773,I had a chicken meal today.,Chicken Meal,1,meal
+774,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+775,I drove my car 617 km to the office.,Car,617,km
+776,I used my car for 250 km today.,Car,250,km
+777,I travelled 281 km by bus.,Bus,281,km
+778,I had a veg lunch today.,Vegetarian Meal,1,meal
+779,I had a veg lunch today.,Vegetarian Meal,1,meal
+780,I travelled 198 km by car.,Car,198,km
+781,I rode my bike for 803 km.,Bike,803,km
+782,I travelled 240 km by car.,Car,240,km
+783,I took a train for 64 km today.,Train,64,km
+784,I travelled 196 km by train.,Train,196,km
+785,I rode my bike for 829 km.,Bike,829,km
+786,I took a bus for 332 km.,Bus,332,km
+787,I took a train for 748 km today.,Train,748,km
+788,I travelled 37 km by car.,Car,37,km
+789,I had a chicken meal today.,Chicken Meal,1,meal
+790,I used my car for 398 km today.,Car,398,km
+791,I flew 421 km today.,Flight,421,km
+792,I took a flight covering 275 km.,Flight,275,km
+793,I took a bus for 996 km.,Bus,996,km
+794,I had a chicken meal today.,Chicken Meal,1,meal
+795,I took a train for 213 km today.,Train,213,km
+796,I walked 71 km today.,Walking,71,km
+797,I ate chicken for lunch.,Chicken Meal,1,meal
+798,I took a bus for 964 km.,Bus,964,km
+799,I took a flight covering 621 km.,Flight,621,km
+800,I rode my bike for 614 km.,Bike,614,km
+801,I rode my bike for 621 km.,Bike,621,km
+802,I rode my bike for 417 km.,Bike,417,km
+803,I walked 727 km today.,Walking,727,km
+804,I took a bus for 276 km.,Bus,276,km
+805,I took a bus for 524 km.,Bus,524,km
+806,I took a bus for 763 km.,Bus,763,km
+807,I rode my bike for 383 km.,Bike,383,km
+808,I ate chicken for lunch.,Chicken Meal,1,meal
+809,I commuted 568 km using the bus.,Bus,568,km
+810,I took a flight covering 136 km.,Flight,136,km
+811,I commuted 98 km using the bus.,Bus,98,km
+812,I flew 715 km today.,Flight,715,km
+813,I ate chicken for lunch.,Chicken Meal,1,meal
+814,I travelled 938 km by bus.,Bus,938,km
+815,I had a chicken meal today.,Chicken Meal,1,meal
+816,I used my computer for 1 hours.,Electricity,1,hour
+817,I commuted 95 km using the bus.,Bus,95,km
+818,I flew 195 km today.,Flight,195,km
+819,I commuted 36 km using the bus.,Bus,36,km
+820,I rode my bike for 117 km.,Bike,117,km
+821,I had a veg lunch today.,Vegetarian Meal,1,meal
+822,I travelled 570 km by train.,Train,570,km
+823,I travelled 756 km by train.,Train,756,km
+824,I had a veg lunch today.,Vegetarian Meal,1,meal
+825,I took a flight covering 646 km.,Flight,646,km
+826,I had a veg lunch today.,Vegetarian Meal,1,meal
+827,I used the air conditioner for 9 hours.,Electricity,9,hour
+828,I walked 158 km today.,Walking,158,km
+829,I watched TV for 12 hours.,Electricity,12,hour
+830,I flew 936 km today.,Flight,936,km
+831,I cycled 626 km today.,Bike,626,km
+832,I travelled 790 km by train.,Train,790,km
+833,I drove my car 929 km to the office.,Car,929,km
+834,I took a bus for 478 km.,Bus,478,km
+835,I took a bus for 940 km.,Bus,940,km
+836,I cycled 169 km today.,Bike,169,km
+837,I watched TV for 5 hours.,Electricity,5,hour
+838,I drove my car 270 km to the office.,Car,270,km
+839,I walked 251 km today.,Walking,251,km
+840,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+841,I rode my bike for 830 km.,Bike,830,km
+842,I ate chicken for lunch.,Chicken Meal,1,meal
+843,I used the air conditioner for 8 hours.,Electricity,8,hour
+844,I travelled 628 km by bus.,Bus,628,km
+845,I had a veg lunch today.,Vegetarian Meal,1,meal
+846,I drove my car 535 km to the office.,Car,535,km
+847,I had a chicken meal today.,Chicken Meal,1,meal
+848,I cycled 183 km today.,Bike,183,km
+849,I walked 200 km today.,Walking,200,km
+850,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+851,I walked 646 km today.,Walking,646,km
+852,I took a bus for 683 km.,Bus,683,km
+853,I drove my car 881 km to the office.,Car,881,km
+854,I travelled 806 km by car.,Car,806,km
+855,I cycled 570 km today.,Bike,570,km
+856,I went for a 673 km walk.,Walking,673,km
+857,I watched TV for 12 hours.,Electricity,12,hour
+858,I flew 163 km today.,Flight,163,km
+859,I cycled 877 km today.,Bike,877,km
+860,I cycled 567 km today.,Bike,567,km
+861,I had a veg lunch today.,Vegetarian Meal,1,meal
+862,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+863,I had a veg lunch today.,Vegetarian Meal,1,meal
+864,I flew 658 km today.,Flight,658,km
+865,I went for a 256 km walk.,Walking,256,km
+866,I used my computer for 12 hours.,Electricity,12,hour
+867,I rode my bike for 391 km.,Bike,391,km
+868,I rode my bike for 116 km.,Bike,116,km
+869,I rode my bike for 116 km.,Bike,116,km
+870,I flew 306 km today.,Flight,306,km
+871,I took a flight covering 468 km.,Flight,468,km
+872,I walked 779 km today.,Walking,779,km
+873,I cycled 950 km today.,Bike,950,km
+874,I took a train for 7 km today.,Train,7,km
+875,I cycled 873 km today.,Bike,873,km
+876,I flew 247 km today.,Flight,247,km
+877,I used the air conditioner for 4 hours.,Electricity,4,hour
+878,I used the air conditioner for 11 hours.,Electricity,11,hour
+879,I ate chicken for lunch.,Chicken Meal,1,meal
+880,I walked 617 km today.,Walking,617,km
+881,I took a flight covering 131 km.,Flight,131,km
+882,I flew 36 km today.,Flight,36,km
+883,I used the air conditioner for 9 hours.,Electricity,9,hour
+884,I rode my bike for 27 km.,Bike,27,km
+885,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+886,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+887,I used my car for 891 km today.,Car,891,km
+888,I walked 739 km today.,Walking,739,km
+889,I used the air conditioner for 7 hours.,Electricity,7,hour
+890,I used the air conditioner for 10 hours.,Electricity,10,hour
+891,I took a bus for 50 km.,Bus,50,km
+892,I cycled 189 km today.,Bike,189,km
+893,I had a chicken meal today.,Chicken Meal,1,meal
+894,I went for a 436 km walk.,Walking,436,km
+895,I travelled 315 km by train.,Train,315,km
+896,I commuted 635 km using the bus.,Bus,635,km
+897,I walked 561 km today.,Walking,561,km
+898,I ate chicken for lunch.,Chicken Meal,1,meal
+899,I cycled 375 km today.,Bike,375,km
+900,I used the air conditioner for 4 hours.,Electricity,4,hour
+901,I watched TV for 3 hours.,Electricity,3,hour
+902,I commuted 413 km using the bus.,Bus,413,km
+903,I travelled 260 km by train.,Train,260,km
+904,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+905,I used the air conditioner for 11 hours.,Electricity,11,hour
+906,I had a veg lunch today.,Vegetarian Meal,1,meal
+907,I travelled 861 km by train.,Train,861,km
+908,I watched TV for 5 hours.,Electricity,5,hour
+909,I used my computer for 12 hours.,Electricity,12,hour
+910,I travelled 711 km by train.,Train,711,km
+911,I went for a 120 km walk.,Walking,120,km
+912,I drove my car 45 km to the office.,Car,45,km
+913,I ate chicken for lunch.,Chicken Meal,1,meal
+914,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+915,I watched TV for 6 hours.,Electricity,6,hour
+916,I went for a 27 km walk.,Walking,27,km
+917,I took a flight covering 929 km.,Flight,929,km
+918,I flew 843 km today.,Flight,843,km
+919,I used the air conditioner for 2 hours.,Electricity,2,hour
+920,I travelled 988 km by train.,Train,988,km
+921,I went for a 296 km walk.,Walking,296,km
+922,I walked 828 km today.,Walking,828,km
+923,I used the air conditioner for 12 hours.,Electricity,12,hour
+924,I had a chicken meal today.,Chicken Meal,1,meal
+925,I took a train for 578 km today.,Train,578,km
+926,I travelled 942 km by car.,Car,942,km
+927,I travelled 479 km by train.,Train,479,km
+928,I commuted 822 km using the bus.,Bus,822,km
+929,I went for a 270 km walk.,Walking,270,km
+930,I had a veg lunch today.,Vegetarian Meal,1,meal
+931,I had a veg lunch today.,Vegetarian Meal,1,meal
+932,I commuted 211 km using the bus.,Bus,211,km
+933,I had a chicken meal today.,Chicken Meal,1,meal
+934,I used the air conditioner for 8 hours.,Electricity,8,hour
+935,I used my computer for 9 hours.,Electricity,9,hour
+936,I had a veg lunch today.,Vegetarian Meal,1,meal
+937,I went for a 324 km walk.,Walking,324,km
+938,I travelled 41 km by car.,Car,41,km
+939,I used my computer for 3 hours.,Electricity,3,hour
+940,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+941,I took a train for 327 km today.,Train,327,km
+942,I used the air conditioner for 9 hours.,Electricity,9,hour
+943,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+944,I walked 967 km today.,Walking,967,km
+945,I travelled 689 km by train.,Train,689,km
+946,I watched TV for 2 hours.,Electricity,2,hour
+947,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+948,I took a train for 904 km today.,Train,904,km
+949,I drove my car 373 km to the office.,Car,373,km
+950,I ate chicken for lunch.,Chicken Meal,1,meal
+951,I took a train for 926 km today.,Train,926,km
+952,I used my car for 766 km today.,Car,766,km
+953,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+954,I used my computer for 1 hours.,Electricity,1,hour
+955,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+956,I had a chicken meal today.,Chicken Meal,1,meal
+957,I travelled 407 km by car.,Car,407,km
+958,I took a bus for 59 km.,Bus,59,km
+959,I drove my car 591 km to the office.,Car,591,km
+960,I travelled 252 km by car.,Car,252,km
+961,I travelled 33 km by train.,Train,33,km
+962,I cycled 706 km today.,Bike,706,km
+963,I rode my bike for 438 km.,Bike,438,km
+964,I walked 642 km today.,Walking,642,km
+965,I travelled 589 km by bus.,Bus,589,km
+966,I flew 179 km today.,Flight,179,km
+967,I cycled 803 km today.,Bike,803,km
+968,I took a train for 977 km today.,Train,977,km
+969,I walked 517 km today.,Walking,517,km
+970,I used my car for 351 km today.,Car,351,km
+971,I travelled 655 km by car.,Car,655,km
+972,I rode my bike for 280 km.,Bike,280,km
+973,I travelled 4 km by car.,Car,4,km
+974,I had a veg lunch today.,Vegetarian Meal,1,meal
+975,I took a flight covering 255 km.,Flight,255,km
+976,I had a veg lunch today.,Vegetarian Meal,1,meal
+977,I commuted 417 km using the bus.,Bus,417,km
+978,I had a veg lunch today.,Vegetarian Meal,1,meal
+979,I had a chicken meal today.,Chicken Meal,1,meal
+980,I walked 851 km today.,Walking,851,km
+981,I ate chicken for lunch.,Chicken Meal,1,meal
+982,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+983,I travelled 901 km by bus.,Bus,901,km
+984,I had a chicken meal today.,Chicken Meal,1,meal
+985,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+986,I walked 450 km today.,Walking,450,km
+987,I used the air conditioner for 10 hours.,Electricity,10,hour
+988,I walked 191 km today.,Walking,191,km
+989,I travelled 354 km by bus.,Bus,354,km
+990,I rode my bike for 398 km.,Bike,398,km
+991,I rode my bike for 999 km.,Bike,999,km
+992,I walked 770 km today.,Walking,770,km
+993,I used my computer for 5 hours.,Electricity,5,hour
+994,I travelled 115 km by bus.,Bus,115,km
+995,I rode my bike for 4 km.,Bike,4,km
+996,I went for a 23 km walk.,Walking,23,km
+997,I drove my car 869 km to the office.,Car,869,km
+998,I watched TV for 11 hours.,Electricity,11,hour
+999,I ate a vegetarian meal.,Vegetarian Meal,1,meal
+1000,I had a chicken meal today.,Chicken Meal,1,meal

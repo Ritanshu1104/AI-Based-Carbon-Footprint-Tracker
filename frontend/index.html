@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Carbon Footprint Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 AI Carbon Footprint Tracker</h1>
+            <p>Describe your day in plain text. We'll calculate your impact using real-world demographic & emission datasets.</p>
+        </header>
+
+        <div class="input-section">
+            <textarea id="activityText" placeholder="Example: I drove my car 25 km to the office. I ate chicken for lunch. I watched TV for 3 hours." rows="4"></textarea>
+            <button onclick="analyzeText()">Calculate Footprint</button>
+        </div>
+
+        <div id="results" class="results-section" style="display: none;">
+            <div class="benchmark-card">
+                <h3>📊 Demographic Benchmark</h3>
+                <p id="benchmarkMsg"></p>
+            </div>
+
+            <div class="total-footprint">
+                <h2>Total CO₂: <span id="totalCO2">0</span> kg</h2>
+            </div>
+
+            <div class="breakdown">
+                <h3>Activity Breakdown</h3>
+                <div id="breakdownList"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

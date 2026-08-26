@@ -1,0 +1,301 @@
+ID,Activity,Category,Unit,EmissionFactor_kgCO2e_per_unit
+1,Petrol Car Small 1,Transport,km,0.179
+2,Petrol Car Medium 2,Transport,km,0.18
+3,Petrol Car Large 3,Transport,km,0.182
+4,Petrol Car Small 4,Transport,km,0.184
+5,Petrol Car Medium 5,Transport,km,0.186
+6,Petrol Car Large 6,Transport,km,0.188
+7,Petrol Car Small 7,Transport,km,0.19
+8,Petrol Car Medium 8,Transport,km,0.192
+9,Petrol Car Large 9,Transport,km,0.194
+10,Petrol Car Small 10,Transport,km,0.196
+11,Petrol Car Medium 11,Transport,km,0.198
+12,Petrol Car Large 12,Transport,km,0.2
+13,Petrol Car Small 13,Transport,km,0.202
+14,Petrol Car Medium 14,Transport,km,0.204
+15,Petrol Car Large 15,Transport,km,0.205
+16,Diesel Car Small 1,Transport,km,0.159
+17,Diesel Car Medium 2,Transport,km,0.161
+18,Diesel Car Large 3,Transport,km,0.162
+19,Diesel Car Small 4,Transport,km,0.164
+20,Diesel Car Medium 5,Transport,km,0.166
+21,Diesel Car Large 6,Transport,km,0.168
+22,Diesel Car Small 7,Transport,km,0.169
+23,Diesel Car Medium 8,Transport,km,0.171
+24,Diesel Car Large 9,Transport,km,0.173
+25,Diesel Car Small 10,Transport,km,0.174
+26,Diesel Car Medium 11,Transport,km,0.176
+27,Diesel Car Large 12,Transport,km,0.178
+28,Diesel Car Small 13,Transport,km,0.18
+29,Diesel Car Medium 14,Transport,km,0.181
+30,Diesel Car Large 15,Transport,km,0.183
+31,Hybrid Car Small 1,Transport,km,0.112
+32,Hybrid Car Medium 2,Transport,km,0.113
+33,Hybrid Car Large 3,Transport,km,0.114
+34,Hybrid Car Small 4,Transport,km,0.115
+35,Hybrid Car Medium 5,Transport,km,0.116
+36,Hybrid Car Large 6,Transport,km,0.118
+37,Hybrid Car Small 7,Transport,km,0.119
+38,Hybrid Car Medium 8,Transport,km,0.12
+39,Hybrid Car Large 9,Transport,km,0.121
+40,Hybrid Car Small 10,Transport,km,0.122
+41,Hybrid Car Medium 11,Transport,km,0.124
+42,Hybrid Car Large 12,Transport,km,0.125
+43,Hybrid Car Small 13,Transport,km,0.126
+44,Hybrid Car Medium 14,Transport,km,0.127
+45,Hybrid Car Large 15,Transport,km,0.128
+46,Electric Car Small 1,Transport,km,0.046
+47,Electric Car Medium 2,Transport,km,0.047
+48,Electric Car Large 3,Transport,km,0.048
+49,Electric Car Small 4,Transport,km,0.048
+50,Electric Car Medium 5,Transport,km,0.049
+51,Electric Car Large 6,Transport,km,0.049
+52,Electric Car Small 7,Transport,km,0.05
+53,Electric Car Medium 8,Transport,km,0.05
+54,Electric Car Large 9,Transport,km,0.051
+55,Electric Car Small 10,Transport,km,0.051
+56,Electric Car Medium 11,Transport,km,0.052
+57,Electric Car Large 12,Transport,km,0.052
+58,Electric Car Small 13,Transport,km,0.053
+59,Electric Car Medium 14,Transport,km,0.053
+60,Electric Car Large 15,Transport,km,0.054
+61,Bus Small 1,Transport,km,0.098
+62,Bus Medium 2,Transport,km,0.099
+63,Bus Large 3,Transport,km,0.1
+64,Bus Small 4,Transport,km,0.101
+65,Bus Medium 5,Transport,km,0.102
+66,Bus Large 6,Transport,km,0.103
+67,Bus Small 7,Transport,km,0.104
+68,Bus Medium 8,Transport,km,0.105
+69,Bus Large 9,Transport,km,0.106
+70,Bus Small 10,Transport,km,0.107
+71,Bus Medium 11,Transport,km,0.108
+72,Bus Large 12,Transport,km,0.109
+73,Bus Small 13,Transport,km,0.11
+74,Bus Medium 14,Transport,km,0.111
+75,Bus Large 15,Transport,km,0.112
+76,Metro Small 1,Transport,km,0.033
+77,Metro Medium 2,Transport,km,0.033
+78,Metro Large 3,Transport,km,0.033
+79,Metro Small 4,Transport,km,0.034
+80,Metro Medium 5,Transport,km,0.034
+81,Metro Large 6,Transport,km,0.034
+82,Metro Small 7,Transport,km,0.035
+83,Metro Medium 8,Transport,km,0.035
+84,Metro Large 9,Transport,km,0.035
+85,Metro Small 10,Transport,km,0.036
+86,Metro Medium 11,Transport,km,0.036
+87,Metro Large 12,Transport,km,0.036
+88,Metro Small 13,Transport,km,0.037
+89,Metro Medium 14,Transport,km,0.037
+90,Metro Large 15,Transport,km,0.037
+91,Train Small 1,Transport,km,0.038
+92,Train Medium 2,Transport,km,0.039
+93,Train Large 3,Transport,km,0.039
+94,Train Small 4,Transport,km,0.039
+95,Train Medium 5,Transport,km,0.04
+96,Train Large 6,Transport,km,0.04
+97,Train Small 7,Transport,km,0.041
+98,Train Medium 8,Transport,km,0.041
+99,Train Large 9,Transport,km,0.041
+100,Train Small 10,Transport,km,0.042
+101,Train Medium 11,Transport,km,0.042
+102,Train Large 12,Transport,km,0.043
+103,Train Small 13,Transport,km,0.043
+104,Train Medium 14,Transport,km,0.043
+105,Train Large 15,Transport,km,0.044
+106,Taxi Small 1,Transport,km,0.167
+107,Taxi Medium 2,Transport,km,0.169
+108,Taxi Large 3,Transport,km,0.171
+109,Taxi Small 4,Transport,km,0.173
+110,Taxi Medium 5,Transport,km,0.175
+111,Taxi Large 6,Transport,km,0.176
+112,Taxi Small 7,Transport,km,0.178
+113,Taxi Medium 8,Transport,km,0.18
+114,Taxi Large 9,Transport,km,0.182
+115,Taxi Small 10,Transport,km,0.184
+116,Taxi Medium 11,Transport,km,0.185
+117,Taxi Large 12,Transport,km,0.187
+118,Taxi Small 13,Transport,km,0.189
+119,Taxi Medium 14,Transport,km,0.191
+120,Taxi Large 15,Transport,km,0.193
+121,Auto Rickshaw Small 1,Transport,km,0.084
+122,Auto Rickshaw Medium 2,Transport,km,0.085
+123,Auto Rickshaw Large 3,Transport,km,0.085
+124,Auto Rickshaw Small 4,Transport,km,0.086
+125,Auto Rickshaw Medium 5,Transport,km,0.087
+126,Auto Rickshaw Large 6,Transport,km,0.088
+127,Auto Rickshaw Small 7,Transport,km,0.089
+128,Auto Rickshaw Medium 8,Transport,km,0.09
+129,Auto Rickshaw Large 9,Transport,km,0.091
+130,Auto Rickshaw Small 10,Transport,km,0.092
+131,Auto Rickshaw Medium 11,Transport,km,0.093
+132,Auto Rickshaw Large 12,Transport,km,0.094
+133,Auto Rickshaw Small 13,Transport,km,0.095
+134,Auto Rickshaw Medium 14,Transport,km,0.095
+135,Auto Rickshaw Large 15,Transport,km,0.096
+136,Motorcycle Small 1,Transport,km,0.096
+137,Motorcycle Medium 2,Transport,km,0.097
+138,Motorcycle Large 3,Transport,km,0.098
+139,Motorcycle Small 4,Transport,km,0.099
+140,Motorcycle Medium 5,Transport,km,0.1
+141,Motorcycle Large 6,Transport,km,0.101
+142,Motorcycle Small 7,Transport,km,0.102
+143,Motorcycle Medium 8,Transport,km,0.103
+144,Motorcycle Large 9,Transport,km,0.104
+145,Motorcycle Small 10,Transport,km,0.105
+146,Motorcycle Medium 11,Transport,km,0.106
+147,Motorcycle Large 12,Transport,km,0.107
+148,Motorcycle Small 13,Transport,km,0.108
+149,Motorcycle Medium 14,Transport,km,0.109
+150,Motorcycle Large 15,Transport,km,0.11
+151,Scooter Small 1,Transport,km,0.07
+152,Scooter Medium 2,Transport,km,0.07
+153,Scooter Large 3,Transport,km,0.071
+154,Scooter Small 4,Transport,km,0.072
+155,Scooter Medium 5,Transport,km,0.073
+156,Scooter Large 6,Transport,km,0.073
+157,Scooter Small 7,Transport,km,0.074
+158,Scooter Medium 8,Transport,km,0.075
+159,Scooter Large 9,Transport,km,0.076
+160,Scooter Small 10,Transport,km,0.076
+161,Scooter Medium 11,Transport,km,0.077
+162,Scooter Large 12,Transport,km,0.078
+163,Scooter Small 13,Transport,km,0.079
+164,Scooter Medium 14,Transport,km,0.08
+165,Scooter Large 15,Transport,km,0.08
+166,Bicycle Small 1,Transport,km,0
+167,Bicycle Medium 2,Transport,km,0
+168,Bicycle Large 3,Transport,km,0
+169,Bicycle Small 4,Transport,km,0
+170,Bicycle Medium 5,Transport,km,0
+171,Bicycle Large 6,Transport,km,0
+172,Bicycle Small 7,Transport,km,0
+173,Bicycle Medium 8,Transport,km,0
+174,Bicycle Large 9,Transport,km,0
+175,Bicycle Small 10,Transport,km,0
+176,Bicycle Medium 11,Transport,km,0
+177,Bicycle Large 12,Transport,km,0
+178,Bicycle Small 13,Transport,km,0
+179,Bicycle Medium 14,Transport,km,0
+180,Bicycle Large 15,Transport,km,0
+181,Walking Small 1,Transport,km,0
+182,Walking Medium 2,Transport,km,0
+183,Walking Large 3,Transport,km,0
+184,Walking Small 4,Transport,km,0
+185,Walking Medium 5,Transport,km,0
+186,Walking Large 6,Transport,km,0
+187,Walking Small 7,Transport,km,0
+188,Walking Medium 8,Transport,km,0
+189,Walking Large 9,Transport,km,0
+190,Walking Small 10,Transport,km,0
+191,Walking Medium 11,Transport,km,0
+192,Walking Large 12,Transport,km,0
+193,Walking Small 13,Transport,km,0
+194,Walking Medium 14,Transport,km,0
+195,Walking Large 15,Transport,km,0
+196,Domestic Flight Small 1,Transport,km,0.237
+197,Domestic Flight Medium 2,Transport,km,0.24
+198,Domestic Flight Large 3,Transport,km,0.242
+199,Domestic Flight Small 4,Transport,km,0.245
+200,Domestic Flight Medium 5,Transport,km,0.247
+201,Domestic Flight Large 6,Transport,km,0.25
+202,Domestic Flight Small 7,Transport,km,0.252
+203,Domestic Flight Medium 8,Transport,km,0.255
+204,Domestic Flight Large 9,Transport,km,0.258
+205,Domestic Flight Small 10,Transport,km,0.26
+206,Domestic Flight Medium 11,Transport,km,0.263
+207,Domestic Flight Large 12,Transport,km,0.265
+208,Domestic Flight Small 13,Transport,km,0.268
+209,Domestic Flight Medium 14,Transport,km,0.27
+210,Domestic Flight Large 15,Transport,km,0.273
+211,International Flight Small 1,Transport,km,0.139
+212,International Flight Medium 2,Transport,km,0.141
+213,International Flight Large 3,Transport,km,0.142
+214,International Flight Small 4,Transport,km,0.144
+215,International Flight Medium 5,Transport,km,0.145
+216,International Flight Large 6,Transport,km,0.147
+217,International Flight Small 7,Transport,km,0.148
+218,International Flight Medium 8,Transport,km,0.15
+219,International Flight Large 9,Transport,km,0.151
+220,International Flight Small 10,Transport,km,0.153
+221,International Flight Medium 11,Transport,km,0.154
+222,International Flight Large 12,Transport,km,0.156
+223,International Flight Small 13,Transport,km,0.158
+224,International Flight Medium 14,Transport,km,0.159
+225,International Flight Large 15,Transport,km,0.161
+226,Chicken Small 1,Food,meal,6.417
+227,Chicken Medium 2,Food,meal,6.486
+228,Chicken Large 3,Food,meal,6.555
+229,Chicken Small 4,Food,meal,6.624
+230,Chicken Medium 5,Food,meal,6.693
+231,Chicken Large 6,Food,meal,6.762
+232,Chicken Small 7,Food,meal,6.831
+233,Chicken Medium 8,Food,meal,6.9
+234,Chicken Large 9,Food,meal,6.969
+235,Chicken Small 10,Food,meal,7.038
+236,Chicken Medium 11,Food,meal,7.107
+237,Chicken Large 12,Food,meal,7.176
+238,Chicken Small 13,Food,meal,7.245
+239,Chicken Medium 14,Food,meal,7.314
+240,Chicken Large 15,Food,meal,7.383
+241,Beef Small 1,Food,meal,25.11
+242,Beef Medium 2,Food,meal,25.38
+243,Beef Large 3,Food,meal,25.65
+244,Beef Small 4,Food,meal,25.92
+245,Beef Medium 5,Food,meal,26.19
+246,Beef Large 6,Food,meal,26.46
+247,Beef Small 7,Food,meal,26.73
+248,Beef Medium 8,Food,meal,27
+249,Beef Large 9,Food,meal,27.27
+250,Beef Small 10,Food,meal,27.54
+251,Beef Medium 11,Food,meal,27.81
+252,Beef Large 12,Food,meal,28.08
+253,Beef Small 13,Food,meal,28.35
+254,Beef Medium 14,Food,meal,28.62
+255,Beef Large 15,Food,meal,28.89
+256,Fish Small 1,Food,meal,4.65
+257,Fish Medium 2,Food,meal,4.7
+258,Fish Large 3,Food,meal,4.75
+259,Fish Small 4,Food,meal,4.8
+260,Fish Medium 5,Food,meal,4.85
+261,Fish Large 6,Food,meal,4.9
+262,Fish Small 7,Food,meal,4.95
+263,Fish Medium 8,Food,meal,5
+264,Fish Large 9,Food,meal,5.05
+265,Fish Small 10,Food,meal,5.1
+266,Fish Medium 11,Food,meal,5.15
+267,Fish Large 12,Food,meal,5.2
+268,Fish Small 13,Food,meal,5.25
+269,Fish Medium 14,Food,meal,5.3
+270,Fish Large 15,Food,meal,5.35
+271,Pork Small 1,Food,meal,11.16
+272,Pork Medium 2,Food,meal,11.28
+273,Pork Large 3,Food,meal,11.4
+274,Pork Small 4,Food,meal,11.52
+275,Pork Medium 5,Food,meal,11.64
+276,Pork Large 6,Food,meal,11.76
+277,Pork Small 7,Food,meal,11.88
+278,Pork Medium 8,Food,meal,12
+279,Pork Large 9,Food,meal,12.12
+280,Pork Small 10,Food,meal,12.24
+281,Pork Medium 11,Food,meal,12.36
+282,Pork Large 12,Food,meal,12.48
+283,Pork Small 13,Food,meal,12.6
+284,Pork Medium 14,Food,meal,12.72
+285,Pork Large 15,Food,meal,12.84
+286,Lamb Small 1,Food,meal,36.27
+287,Lamb Medium 2,Food,meal,36.66
+288,Lamb Large 3,Food,meal,37.05
+289,Lamb Small 4,Food,meal,37.44
+290,Lamb Medium 5,Food,meal,37.83
+291,Lamb Large 6,Food,meal,38.22
+292,Lamb Small 7,Food,meal,38.61
+293,Lamb Medium 8,Food,meal,39
+294,Lamb Large 9,Food,meal,39.39
+295,Lamb Small 10,Food,meal,39.78
+296,Lamb Medium 11,Food,meal,40.17
+297,Lamb Large 12,Food,meal,40.56
+298,Lamb Small 13,Food,meal,40.95
+299,Lamb Medium 14,Food,meal,41.34
+300,Lamb Large 15,Food,meal,41.73
