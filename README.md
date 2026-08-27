@@ -1,224 +1,220 @@
 # 🌍 AI-Based Personal Carbon Footprint Tracker
 
-An intelligent web application that estimates a user's daily carbon footprint from natural-language descriptions of daily activities.
+An intelligent web application that estimates a user's daily carbon footprint by analyzing natural language descriptions of their activities. Rather than navigating tedious forms or dropdown menus, users simply type what they did in plain English (e.g., *"I drove my car 25 km to the office and ate chicken for lunch"*), and the system automatically extracts activities, maps them to emission factors, and calculates total CO₂e emissions.
 
-Instead of filling out lengthy forms or selecting activities manually, users can simply describe their day in plain English, for example:
+---
 
-> "I drove my car 25 km to the office and ate chicken for lunch."
+## 📋 Table of Contents
 
-The application extracts activities and quantities from the text, maps them to emission factors, calculates estimated CO₂e emissions, and compares the result with a demographic-based daily benchmark.
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Datasets](#-datasets-used)
+- [Installation](#-installation--setup)
+- [Usage](#-running-the-application)
+- [How It Works](#-how-it-works)
+- [Example Inputs](#-example-inputs)
+- [Future Enhancements](#-future-enhancements)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
 
 ## ✨ Features
 
-- **Natural Language Input** — Enter daily activities using simple, free-form text.
-- **Automatic Activity Extraction** — Identifies activities such as car travel, flights, food consumption, and other supported activities.
-- **Emission Factor Mapping** — Uses a custom dataset containing **300+ emission factors** for Transport and Food categories.
-- **Quantity-Based Calculation** — Uses quantities such as distance, duration, or number of meals when calculating emissions.
-- **Category-Wise Breakdown** — Provides an emission breakdown across categories such as Transport and Food.
-- **Demographic Benchmarking** — Compares the estimated daily footprint with a daily average derived from the demographic dataset.
-- **Free and Local** — Uses open-source Python libraries and local/public datasets without paid APIs or cloud dependencies.
+- **Natural Language Input** — No dropdowns or forms. The NLP engine understands free-form text descriptions.
+- **Realistic Emission Mapping** — Uses a custom dataset of 300+ emission factors with variations (Small, Medium, Large) for vehicles and meals.
+- **Demographic Benchmarking** — Compares the user's daily footprint against real-world demographic data for contextual insights.
+- **100% Free & Offline** — Leverages custom and public datasets with open-source Python libraries. No paid APIs or cloud dependencies required.
+- **Real-Time Feedback** — Instant calculation and breakdown of emissions by category (Transport, Food, etc.).
+
+---
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
-|---|---|
-| Backend | Python, Flask |
-| Data Processing | Pandas |
-| NLP / Text Extraction | Regex-based pattern matching |
-| Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Environment | Conda |
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python 3.10+, Flask |
+| **Data Processing** | Pandas |
+| **NLP** | Regex-based pattern extraction (extensible to spaCy or HuggingFace Transformers) |
+| **Frontend** | HTML5, CSS3, Vanilla JavaScript |
+| **Environment** | Conda |
 
-## 📊 Datasets
-
-The project uses three datasets:
-
-### 1. `Realistic_Emission_Factors_300.csv`
-
-Contains 300 emission factors for Transport and Food categories. The application averages Small, Medium, and Large variations to obtain a baseline emission factor for supported activities.
-
-### 2. `Daily_Activity_Text_Dataset.csv`
-
-Contains 1,000 text descriptions mapped to activities and quantities. It supports the pattern-based NLP extraction logic used by the application.
-
-### 3. `Carbon Emission.csv`
-
-Contains demographic lifestyle information and annual carbon emissions. It is used to derive a daily benchmark for comparing the user's estimated footprint.
+---
 
 ## 📁 Project Structure
 
-```text
+```
 carbon-tracker/
 ├── data/
-│   ├── Carbon Emission.csv
-│   ├── Daily_Activity_Text_Dataset.csv
-│   └── Realistic_Emission_Factors_300.csv
-│
+│   ├── Carbon_Emission.csv                 # Demographic benchmark dataset
+│   ├── Daily_Activity_Text_Dataset.csv     # NLP text patterns dataset
+│   └── Realistic_Emission_Factors_300.csv  # Emission factors reference
 ├── backend/
-│   ├── app.py
-│   ├── nlp_extractor.py
-│   └── carbon_calculator.py
-│
+│   ├── app.py                              # Flask API server
+│   ├── nlp_extractor.py                    # NLP/Regex extraction logic
+│   └── carbon_calculator.py                # Calculation & benchmarking logic
 ├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-└── README.md
+│   ├── index.html                          # UI layout
+│   ├── style.css                           # Styling
+│   └── script.js                           # Frontend API calls
+├── README.md                               # Project documentation
+└── requirements.txt                        # Python dependencies
 ```
 
-### File Overview
+---
 
-- `app.py` — Flask backend/API server.
-- `nlp_extractor.py` — Extracts supported activities and quantities from natural-language text.
-- `carbon_calculator.py` — Looks up emission factors, performs calculations, and handles benchmarking.
-- `index.html` — Frontend interface.
-- `style.css` — Frontend styling.
-- `script.js` — Handles frontend interactions and backend API requests.
-- `data/` — Contains the datasets required by the application.
+## 📊 Datasets Used
+
+This project uses three custom datasets to deliver realistic, data-driven carbon footprint estimates:
+
+1. **`Realistic_Emission_Factors_300.csv`**  
+   Contains 300 emission factors for Transport and Food categories. Emission factors are averaged across variations (Small, Medium, Large) to provide accurate baseline values for activities like driving, flying, or eating specific meals.
+
+2. **`Daily_Activity_Text_Dataset.csv`**  
+   A 1,000-row dataset mapping natural language text descriptions to specific activities and quantities. Informs the NLP extraction patterns to ensure the app understands how users naturally describe their daily activities.
+
+3. **`Carbon_Emission.csv`**  
+   A demographic dataset containing lifestyle choices and annual carbon emissions. Used to calculate baseline daily averages for demographic benchmarking.
+
+---
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
 
-Make sure the following are installed:
+- **Python 3.10** or higher
+- **Conda** (download from [Anaconda](https://www.anaconda.com/))
 
-- Python 3.10
-- Conda
-- Git
-- A modern web browser
-
-### 1. Clone the Repository
+### Step 1: Clone the Repository
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/[USERNAME]/carbon-tracker.git
 cd carbon-tracker
 ```
 
-Replace `<YOUR-GITHUB-REPOSITORY-URL>` with the URL of your GitHub repository.
-
-### 2. Create the Conda Environment
+### Step 2: Create and Activate the Conda Environment
 
 ```bash
 conda create -n carbon-tracker python=3.10 -y
 conda activate carbon-tracker
 ```
 
-### 3. Install Dependencies
+### Step 3: Install Dependencies
 
 ```bash
 conda install -c conda-forge flask flask-cors pandas -y
 ```
 
+Alternatively, if using `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
 ## 💻 Running the Application
 
-### Start the Backend
-
-From the project root:
+### Start the Backend Server
 
 ```bash
 cd backend
 python app.py
 ```
 
-The Flask server should start at:
-
-```text
-http://localhost:5000
-```
+The Flask server will start on `http://localhost:5000`.
 
 ### Open the Frontend
 
-Open:
+Open `frontend/index.html` in any modern web browser (Chrome, Firefox, Edge, Safari).
 
-```text
-frontend/index.html
-```
-
-in a modern browser such as Chrome, Firefox, or Edge.
-
-> **Note:** The backend must be running while using the frontend because the frontend communicates with the Flask API.
-
-## 📝 Example Inputs
-
-Try entering statements such as:
-
-```text
-I drove my car 25 km to the office.
-
-I flew 800 km today for a meeting.
-
-I ate chicken for lunch and watched TV for 4 hours.
-
-I travelled 15 km by bus and cycled 10 km.
-
-I took a train for 300 km and had a vegetarian meal.
-```
-
-The application extracts the supported activities and quantities and uses them to estimate the associated CO₂e emissions.
-
-## 🧠 How It Works
-
-The application follows a simple processing pipeline:
-
-```text
-Natural-Language Activity Description
-                ↓
-        NLP / Pattern Extraction
-                ↓
-       Activity + Quantity Extraction
-                ↓
-         Emission Factor Lookup
-                ↓
-          CO₂e Calculation
-                ↓
-       Category-Wise Breakdown
-                ↓
-      Demographic Benchmarking
-```
-
-### Step 1 — Text Input
-
-The user enters a natural-language description of their daily activities.
-
-### Step 2 — Activity Extraction
-
-`nlp_extractor.py` uses pattern matching to identify supported activities and quantities, such as:
-
-- Car → 25 km
-- Flight → 800 km
-- Chicken → 1 meal
-- Bus → 15 km
-
-### Step 3 — Emission Factor Lookup
-
-`carbon_calculator.py` processes `Realistic_Emission_Factors_300.csv` and averages available size variations (Small, Medium, Large) to obtain a baseline factor for supported activities.
-
-### Step 4 — CO₂e Calculation
-
-The extracted quantity is combined with the corresponding emission factor to estimate the activity's CO₂e emissions.
-
-### Step 5 — Benchmarking
-
-The estimated total daily footprint is compared with a daily average derived from `Carbon Emission.csv`.
-
-## 🔮 Future Enhancements
-
-- **Advanced NLP** — Integrate spaCy or Hugging Face Transformers, such as BERT-based models, for more complex and ambiguous sentences.
-- **User Accounts & History** — Add SQLite-based storage for tracking carbon footprints over weeks or months.
-- **Expanded Categories** — Add electricity consumption, additional food items, shipping, and more travel activities.
-- **Gamification** — Introduce a Green Score and environmental-impact comparisons.
-- **Improved Activity Recognition** — Expand the supported vocabulary and quantity patterns.
-
-## ⚠️ Limitations
-
-- The current NLP component is **regex/pattern based**, so it may not understand every possible way of describing an activity.
-- The accuracy of the estimate depends on the emission factors available in the provided datasets.
-- The application currently focuses on the activity categories supported by the datasets and extraction logic.
-
-## 🎯 Project Objective
-
-The goal of this project is to make personal carbon-footprint estimation simpler and more accessible by allowing users to describe their everyday activities naturally instead of manually entering data into multiple forms.
+The application is now ready to use.
 
 ---
 
-⭐ **If you find this project useful, consider giving the repository a star!**
+## 📝 Example Inputs
+
+Test the NLP engine with these sample inputs:
+
+- `"I drove my car 25 km to the office."`
+- `"I flew 800 km today for a meeting."`
+- `"I ate chicken for lunch and watched TV for 4 hours."`
+- `"I travelled 15 km by bus and cycled 10 km."`
+- `"I took a train for 300 km and had a vegetarian meal."`
+
+---
+
+## 🧠 How It Works
+
+The application follows a four-step pipeline:
+
+1. **Text Input**  
+   User enters a natural language description of their daily activities.
+
+2. **NLP Extraction**  
+   The `nlp_extractor.py` module uses pattern matching (trained on `Daily_Activity_Text_Dataset.csv`) to identify activities (e.g., Car, Flight, Chicken) and quantities (e.g., 25 km, 1 meal).
+
+3. **Factor Lookup**  
+   The `carbon_calculator.py` module processes `Realistic_Emission_Factors_300.csv`, stripping size variations (Small/Medium/Large) to calculate the mathematical average emission factor for each base activity.
+
+4. **Calculation & Benchmarking**  
+   The system multiplies extracted quantity by the average emission factor and compares the total daily CO₂e against the average daily emission derived from `Carbon_Emission.csv` demographic data.
+
+---
+
+## 🔮 Future Enhancements
+
+- **Advanced NLP**: Integrate spaCy or HuggingFace Transformers (e.g., BERT) to handle complex, varied, and ambiguous sentence structures.
+- **User Accounts & History**: Add SQLite database to track carbon footprints over weeks or months.
+- **Expanded Categories**: Include electricity usage, international shipping factors, and additional food items.
+- **Gamification**: Introduce a "Green Score" or show equivalent environmental impacts (e.g., "Your choices saved the equivalent of 2 trees!").
+- **Data Visualization**: Add charts and trends for historical footprint analysis.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. **Fork** the repository on GitHub.
+2. **Create a feature branch** for your changes:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. **Make your changes** and test them thoroughly.
+4. **Commit** with clear, descriptive messages:
+   ```bash
+   git commit -m "Add feature: description of changes"
+   ```
+5. **Push** to your fork:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+6. **Open a Pull Request** with a description of your changes.
+
+### Guidelines
+
+- Follow PEP 8 for Python code style.
+- Update tests and documentation for new features.
+- Keep commits atomic and descriptive.
+- Reference any related issues in your PR description.
+
+---
+
+## 📄 License
+
+This project is licensed under the **[LICENSE_TYPE]** License. See the `LICENSE` file for details.
+
+---
+
+## 📧 Contact & Support
+
+For questions, issues, or suggestions, please:
+
+- Open an [issue](https://github.com/[USERNAME]/carbon-tracker/issues) on GitHub.
+- Reach out via email: **[YOUR_EMAIL]**.
+
+---
+
+**Happy tracking! 🌱**
