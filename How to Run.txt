@@ -1,0 +1,6 @@
+conda activate carbon-tracker
+
+python app.py
+
+
+I drove my car 25 km to the office. I ate chicken for lunch
