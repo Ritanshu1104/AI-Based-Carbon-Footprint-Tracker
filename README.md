@@ -202,18 +202,14 @@ Contributions are welcome! To contribute:
 
 ---
 
-## 📄 License
 
-This project is licensed under the **[LICENSE_TYPE]** License. See the `LICENSE` file for details.
-
----
 
 ## 📧 Contact & Support
 
 For questions, issues, or suggestions, please:
 
-- Open an [issue](https://github.com/[USERNAME]/carbon-tracker/issues) on GitHub.
-- Reach out via email: **[YOUR_EMAIL]**.
+<!-- - Open an [issue](https://github.com/[USERNAME]/carbon-tracker/issues) on GitHub. -->
+- Reach out via email: **[ritanshupm@gmail.com]**.
 
 ---
 
