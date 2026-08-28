@@ -11,10 +11,12 @@ calculator = CarbonCalculator()
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
-    data = request.json
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({'error': 'Request body must be a JSON object'}), 400
     text = data.get('text', '')
     
-    if not text:
+    if not isinstance(text, str) or not text.strip():
         return jsonify({'error': 'No text provided'}), 400
         
     activities = extractor.extract_activities(text)
