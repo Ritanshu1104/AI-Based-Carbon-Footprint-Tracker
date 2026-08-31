@@ -131,6 +131,17 @@ Open `frontend/index.html` in any modern web browser (Chrome, Firefox, Edge, Saf
 
 The application is now ready to use.
 
+### Run the Tests
+
+From the project root:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The regression suite covers activity extraction, distance-unit normalization,
+factor selection, audit fields, and API input validation.
+
 ---
 
 ## 📝 Example Inputs
@@ -166,6 +177,7 @@ The application follows a four-step pipeline:
 ## 🔮 Future Enhancements
 
 - **Advanced NLP**: Integrate spaCy or HuggingFace Transformers (e.g., BERT) to handle complex, varied, and ambiguous sentence structures.
+- **Uncertainty-Aware Clarification**: Ask the single question that most reduces the estimated CO₂e range when a log omits important details such as vehicle fuel or occupancy.
 - **User Accounts & History**: Add SQLite database to track carbon footprints over weeks or months.
 - **Expanded Categories**: Include electricity usage, international shipping factors, and additional food items.
 - **Gamification**: Introduce a "Green Score" or show equivalent environmental impacts (e.g., "Your choices saved the equivalent of 2 trees!").

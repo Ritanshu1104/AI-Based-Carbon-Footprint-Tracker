@@ -37,6 +37,10 @@ class CarbonCalculator:
             'Bus': 'Bus',
             'Train': 'Train',
             'Car': ['Petrol Car', 'Diesel Car', 'Hybrid Car', 'Electric Car'], 
+            'Petrol Car': 'Petrol Car',
+            'Diesel Car': 'Diesel Car',
+            'Hybrid Car': 'Hybrid Car',
+            'Electric Car': 'Electric Car',
             'Bike': 'Bicycle',
             'Walking': 'Walking',
             'Chicken Meal': 'Chicken'
@@ -80,7 +84,9 @@ class CarbonCalculator:
             breakdown.append({
                 'activity': f"{label} ({qty} {unit})",
                 'co2_kg': round(co2, 2),
-                'category': category
+                'category': category,
+                'factor_kg_co2e_per_unit': round(factor, 6),
+                'source_text': act.get('source_text', '')
             })
             
         return {
