@@ -39,12 +39,23 @@ function showError(message) {
 function setBusy(busy, label = 'Working…') {
     ui.analyze.disabled = busy;
     ui.answer.disabled = busy;
+    const labelNode = ui.analyze.querySelector('span');
     if (busy) {
-        ui.analyze.dataset.label ||= ui.analyze.textContent;
-        ui.analyze.textContent = label;
-    } else if (ui.analyze.dataset.label) {
-        ui.analyze.textContent = ui.analyze.dataset.label;
+        ui.analyze.dataset.label ||= labelNode?.textContent || ui.analyze.textContent;
+        if (labelNode) labelNode.textContent = label;
+        else ui.analyze.textContent = label;
+    } else if (ui.analyze.dataset.label && labelNode) {
+        labelNode.textContent = ui.analyze.dataset.label;
     }
+}
+
+function setProcessStep(step) {
+    document.querySelectorAll('.process-list li').forEach((item, index) => {
+        item.classList.toggle('active', index + 1 <= step);
+    });
+    document.querySelectorAll('.flow-line span').forEach((item, index) => {
+        item.classList.toggle('active', index + 1 <= step);
+    });
 }
 
 async function api(path, {method = 'GET', body, form} = {}) {
@@ -71,7 +82,7 @@ async function analyzeText() {
 
 function render(data) {
     currentData = data; currentSession = data.session_id; currentQuestion = data.question;
-    renderQuestion(data.question); renderResult(data);
+    renderQuestion(data.question); renderResult(data); setProcessStep(data.question ? 2 : 3);
     if (data.route_evidence) renderRouteEvidence(data.route_evidence);
 }
 
@@ -81,9 +92,10 @@ function renderQuestion(question) {
     if (!question) return;
     ui.questionPrompt.textContent = question.prompt;
     const metrics = question.utility_metrics;
-    const metricText = metrics?.expected_range_reduction_kg == null ? '' :
-        ` Expected range reduction: ${metrics.expected_range_reduction_kg} kg.`;
-    ui.questionContext.textContent = `From “${question.source_text}” · ${question.reason}${metricText}`;
+    ui.questionContext.textContent = `We found “${question.source_text}”. This answer resolves the most useful missing detail.`;
+    if (metrics?.expected_range_reduction_kg != null) {
+        ui.questionContext.title = `Expected range reduction: ${metrics.expected_range_reduction_kg} kg CO₂e`;
+    }
     if (question.input_type === 'choice') {
         const grid = element('div', 'choice-grid');
         question.options.forEach((option, index) => {
@@ -349,8 +361,11 @@ function renderResult(data) {
     ui.results.hidden = false;
     document.getElementById('totalCO2').textContent = Number(data.total_co2_kg).toFixed(2);
     document.getElementById('totalRange').textContent = `${data.total_co2_range_kg.low.toFixed(2)}–${data.total_co2_range_kg.high.toFixed(2)} kg`;
-    document.getElementById('benchmarkMsg').textContent = data.benchmark.message;
-    const badge = document.getElementById('confidenceBadge'); badge.textContent = data.confidence.replaceAll('-', ' ');
+    document.getElementById('benchmarkMsg').textContent =
+        `The sample dataset averages ${data.benchmark.daily_avg_kg.toFixed(2)} kg per day. Build your own baseline by saving several days.`;
+    const badge = document.getElementById('confidenceBadge');
+    badge.textContent = ({'low-factor-quality': 'Some factors need stronger sources',
+        'medium': 'Medium confidence', 'high': 'High confidence'}[data.confidence] || data.confidence.replaceAll('-', ' '));
     document.getElementById('saveButton').disabled = data.status !== 'complete' || !signedInUser;
     document.getElementById('saveStatus').textContent = !signedInUser ? 'Sign in to save encrypted history.' :
         (data.status === 'complete' ? '' : 'Resolve the current question before saving.');
@@ -437,6 +452,7 @@ async function authenticate(mode) {
         const result = await api(`/api/auth/${mode}`, {method: 'POST', body: {username, password}});
         authToken = result.token; localStorage.setItem('carbonAuthToken', authToken); signedInUser = result.user;
         document.getElementById('password').value = ''; updateAuthUi(); await Promise.all([loadJournal(), loadDashboard()]);
+        document.querySelector('.account-menu').open = false;
         if (currentData) renderResult(currentData);
     } catch (error) { showError(error.message); }
 }
@@ -453,6 +469,7 @@ function updateAuthUi() {
     document.getElementById('logoutButton').hidden = !signedInUser;
     ui.authStatus.textContent = signedInUser ? `Signed in locally as ${signedInUser.username}. Journal records are encrypted.` :
         'Sign in to save encrypted history and corrections.';
+    document.getElementById('accountLabel').textContent = signedInUser ? signedInUser.username : 'Private account';
 }
 
 async function logout() {
@@ -526,11 +543,23 @@ async function initialize() {
     try {
         [capabilities, mapsConfig] = await Promise.all([api('/api/capabilities'), api('/api/maps/config')]);
     } catch (error) { showError(error.message); }
+    const mapsStatus = document.getElementById('mapsCapability');
+    if (capabilities.routing?.google_routes) {
+        mapsStatus.innerHTML = '<i></i> Google route verification';
+    } else {
+        mapsStatus.classList.add('unavailable');
+        mapsStatus.innerHTML = '<i></i> Route setup needed';
+    }
     await restoreAuth(); await Promise.all([loadJournal(), loadDashboard()]);
 }
 
 ui.analyze.addEventListener('click', analyzeText); ui.answer.addEventListener('click', submitAnswer);
 ui.example.addEventListener('click', () => { ui.text.value = 'I drove my car 25 km to college, ate a vegetarian lunch, and used 4 kWh of electricity.'; ui.text.focus(); });
+document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => {
+    ui.text.value = button.dataset.example;
+    ui.text.dispatchEvent(new Event('input'));
+    ui.text.focus();
+}));
 document.getElementById('saveButton').addEventListener('click', saveCurrentResult);
 document.getElementById('exportButton').addEventListener('click', exportAudit);
 document.getElementById('loginButton').addEventListener('click', () => authenticate('login'));
@@ -538,5 +567,9 @@ document.getElementById('registerButton').addEventListener('click', () => authen
 document.getElementById('logoutButton').addEventListener('click', logout);
 document.getElementById('goalButton').addEventListener('click', saveGoal);
 document.getElementById('dashboardMonth').addEventListener('change', loadDashboard);
+ui.text.addEventListener('input', () => {
+    document.getElementById('characterCount').textContent = `${ui.text.value.length.toLocaleString()} / 5,000`;
+});
 ui.text.addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') analyzeText(); });
+document.getElementById('password').addEventListener('keydown', event => { if (event.key === 'Enter') authenticate('login'); });
 initialize();

@@ -3,133 +3,139 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="An evidence-aware personal carbon footprint research prototype.">
+    <meta name="description" content="Turn everyday activities into transparent, evidence-aware carbon estimates.">
+    <meta name="theme-color" content="#103d2e">
     <title>Carbon Evidence Lab</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="shell">
-        <section class="account-bar" aria-label="Private account">
-            <div><strong>Private workspace</strong><span id="authStatus">Sign in to save encrypted history and corrections.</span></div>
-            <div id="authForm" class="auth-form">
-                <input id="username" autocomplete="username" placeholder="Username">
-                <input id="password" type="password" autocomplete="current-password" placeholder="Password (10+ characters)">
-                <button id="loginButton" class="secondary-button" type="button">Sign in</button>
-                <button id="registerButton" class="secondary-button" type="button">Create local account</button>
-            </div>
-            <button id="logoutButton" class="text-button" type="button" hidden>Sign out</button>
-        </section>
-        <header class="hero">
-            <div>
-                <p class="eyebrow">RESEARCH PROTOTYPE · FACTOR SET 1.0</p>
-                <h1>Turn daily activity into an estimate you can inspect.</h1>
-                <p class="lede">Describe what you did. The tracker preserves your words, shows uncertainty, and asks for one useful missing detail at a time.</p>
-            </div>
-            <div class="method-chip"><span></span> Evidence-aware calculation</div>
-        </header>
+    <header class="app-header">
+        <a class="brand" href="#top" aria-label="Carbon Evidence Lab home">
+            <span class="brand-mark" aria-hidden="true">C</span>
+            <span><strong>Carbon Evidence</strong><small>Personal impact lab</small></span>
+        </a>
+        <nav class="top-nav" aria-label="Page sections">
+            <a href="#log">Log activity</a><a href="#history">History</a><a href="#insights">Insights</a>
+        </nav>
+        <details class="account-menu">
+            <summary><span class="account-dot"></span><span id="accountLabel">Private account</span></summary>
+            <section class="account-popover" aria-label="Private account">
+                <div><strong>Your private workspace</strong><p id="authStatus">Sign in to save encrypted history and corrections.</p></div>
+                <div id="authForm" class="auth-form">
+                    <label><span>Username</span><input id="username" autocomplete="username" placeholder="Your username"></label>
+                    <label><span>Password</span><input id="password" type="password" autocomplete="current-password" placeholder="10+ characters"></label>
+                    <button id="loginButton" class="primary-button" type="button">Sign in</button>
+                    <button id="registerButton" class="secondary-button" type="button">Create account</button>
+                </div>
+                <button id="logoutButton" class="secondary-button full" type="button" hidden>Sign out</button>
+            </section>
+        </details>
+    </header>
 
-        <section class="entry-card" aria-labelledby="entry-title">
-            <div class="section-heading">
-                <div><p class="step">01 · ACTIVITY LOG</p><h2 id="entry-title">What did you do today?</h2></div>
-                <button class="text-button" id="exampleButton" type="button">Use example</button>
+    <main id="top" class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow"><span></span> Evidence-aware personal tracking</p>
+                <h1>Understand your day’s impact in one sentence.</h1>
+                <p class="lede">Describe where you travelled, what you ate, or the energy you used. We find the useful details, verify what we can, and show how every estimate was made.</p>
+                <div class="trust-row" aria-label="Product capabilities">
+                    <span id="mapsCapability"><i></i> Route verification</span>
+                    <span><i></i> Encrypted journal</span>
+                    <span><i></i> Visible uncertainty</span>
+                </div>
             </div>
-            <textarea id="activityText" rows="5" maxlength="5000" placeholder="I drove my car 25 km to college, ate a vegetarian lunch, and used 4 kWh of electricity."></textarea>
-            <div class="entry-actions">
-                <p>Your log stays in this local server's memory for up to one hour.</p>
-                <button class="primary-button" id="analyzeButton" type="button">Build estimate <span>→</span></button>
-            </div>
-            <p id="errorMessage" class="error" role="alert" hidden></p>
+            <aside class="hero-stat" aria-label="How it works">
+                <span class="stat-number">01</span>
+                <strong>Write naturally</strong>
+                <p>“Drove from Indore to Bhopal and had a vegetarian lunch.”</p>
+                <div class="flow-line"><span class="active"></span><span></span><span></span></div>
+            </aside>
+        </section>
+
+        <section id="log" class="workspace-grid">
+            <article class="entry-card" aria-labelledby="entry-title">
+                <div class="section-heading">
+                    <div><p class="step">TODAY’S LOG</p><h2 id="entry-title">What did you do?</h2></div>
+                    <span class="keyboard-hint">Ctrl + Enter</span>
+                </div>
+                <textarea id="activityText" rows="5" maxlength="5000" aria-describedby="inputHelp characterCount" placeholder="Example: I drove from Indore to Bhopal in my petrol car and ate a vegetarian lunch."></textarea>
+                <div class="example-row" aria-label="Activity examples">
+                    <span>Try:</span>
+                    <button class="example-chip" type="button" data-example="I drove from Indore to Bhopal in my petrol car.">Road trip</button>
+                    <button class="example-chip" type="button" data-example="I took a train for 120 km and ate a vegetarian meal.">Train + meal</button>
+                    <button class="example-chip" type="button" data-example="I used 6 kWh of electricity today.">Electricity</button>
+                    <button class="text-button" id="exampleButton" type="button">Full example</button>
+                </div>
+                <div class="entry-actions">
+                    <p id="inputHelp"><span class="privacy-icon">●</span> Processed by your local server</p>
+                    <span id="characterCount" class="character-count">0 / 5,000</span>
+                    <button class="primary-button analyze-button" id="analyzeButton" type="button"><span>Calculate my impact</span><b aria-hidden="true">→</b></button>
+                </div>
+                <p id="errorMessage" class="error" role="alert" hidden></p>
+            </article>
+
+            <aside class="process-card">
+                <p class="step">WHAT HAPPENS NEXT</p>
+                <ol class="process-list">
+                    <li class="active"><span>1</span><div><strong>Recognize activities</strong><p>Travel, food, and electricity</p></div></li>
+                    <li><span>2</span><div><strong>Verify key details</strong><p>Maps, bills, or one quick answer</p></div></li>
+                    <li><span>3</span><div><strong>Show the evidence</strong><p>Estimate, range, and sources</p></div></li>
+                </ol>
+                <div class="privacy-note"><span aria-hidden="true">⌾</span><p><strong>Designed for privacy</strong>Your unsaved text expires from server memory after one hour.</p></div>
+            </aside>
         </section>
 
         <section id="questionPanel" class="question-card" aria-live="polite" hidden>
-            <p class="step">02 · NARROW THE RANGE</p>
+            <div class="question-progress"><span></span><span></span><span></span></div>
+            <p class="step">ONE DETAIL WILL IMPROVE THIS RESULT</p>
             <h2 id="questionPrompt"></h2>
             <p id="questionContext" class="muted"></p>
             <div id="questionInput"></div>
             <div id="evidenceTools"></div>
-            <button class="primary-button compact" id="answerButton" type="button">Apply answer</button>
+            <button class="primary-button compact" id="answerButton" type="button">Continue to result <span>→</span></button>
         </section>
 
         <section id="results" class="results" aria-live="polite" hidden>
             <div class="results-head">
-                <div><p class="step">03 · TRACEABLE RESULT</p><h2>Your current estimate</h2></div>
+                <div><p class="step">YOUR RESULT</p><h2>Today’s estimated footprint</h2></div>
                 <span id="confidenceBadge" class="status-badge"></span>
             </div>
-
             <div class="summary-grid">
                 <article class="total-card">
-                    <p>Point estimate</p>
+                    <p>Estimated impact</p>
                     <strong><span id="totalCO2">0</span> <small>kg CO₂e</small></strong>
-                    <div class="range-line"><span>Supported range</span><b id="totalRange">0–0 kg</b></div>
+                    <div class="range-line"><span>Likely range</span><b id="totalRange">0–0 kg</b></div>
                 </article>
                 <article class="benchmark-card">
-                    <p>Context only</p>
-                    <h3>Dataset benchmark</h3>
-                    <p id="benchmarkMsg"></p>
+                    <p>Helpful context</p><h3>How to read this</h3><p id="benchmarkMsg"></p>
                 </article>
             </div>
-
             <section id="routePreviewPanel" class="panel route-preview" hidden>
-                <div class="section-heading">
-                    <div><p class="step">VERIFIED ROUTE</p><h3 id="routePreviewTitle">Google Maps distance</h3></div>
-                    <a id="openGoogleMaps" class="secondary-button map-link" target="_blank" rel="noopener">Open in Google Maps</a>
-                </div>
-                <p id="routePreviewSummary" class="muted"></p>
-                <div id="routeAlternatives" class="route-alternatives"></div>
-                <div id="routeMap" class="route-map" aria-label="Verified route map" hidden></div>
+                <div class="section-heading"><div><p class="step">VERIFIED ROUTE</p><h3 id="routePreviewTitle">Google Maps distance</h3></div><a id="openGoogleMaps" class="secondary-button map-link" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+                <p id="routePreviewSummary" class="muted"></p><div id="routeAlternatives" class="route-alternatives"></div><div id="routeMap" class="route-map" aria-label="Verified route map" hidden></div>
             </section>
-
-            <div class="result-actions">
-                <button class="secondary-button" id="saveButton" type="button">Save to local journal</button>
-                <button class="secondary-button" id="exportButton" type="button">Export audit JSON</button>
-                <span id="saveStatus" class="muted"></span>
+            <div class="result-actions"><button class="primary-button" id="saveButton" type="button">Save this day</button><button class="secondary-button" id="exportButton" type="button">Download evidence</button><span id="saveStatus" class="muted"></span></div>
+            <div class="result-detail-grid">
+                <section class="panel"><div class="section-heading"><h3>Where your impact came from</h3><span class="count">kg CO₂e</span></div><div id="categoryChart" class="category-chart"></div></section>
+                <section id="recommendationPanel" class="panel" hidden><h3>Lower-impact options</h3><div id="recommendationList"></div></section>
             </div>
-
-            <section class="panel">
-                <h3>Category contribution</h3>
-                <div id="categoryChart" class="category-chart"></div>
-            </section>
-
-            <section class="panel">
-                <div class="section-heading"><h3>Activity breakdown</h3><span id="activityCount" class="count"></span></div>
-                <div id="breakdownList" class="breakdown-list"></div>
-            </section>
-
-            <section id="recommendationPanel" class="panel" hidden>
-                <h3>Lower-impact options</h3>
-                <div id="recommendationList"></div>
-            </section>
-
-            <details class="audit-panel">
-                <summary>Method, evidence and audit record</summary>
-                <div id="auditContent"></div>
-            </details>
+            <section class="panel"><div class="section-heading"><h3>Activity breakdown</h3><span id="activityCount" class="count"></span></div><div id="breakdownList" class="breakdown-list"></div></section>
+            <details class="audit-panel"><summary><span>Method and evidence</span><small>For research and verification</small></summary><div id="auditContent"></div></details>
         </section>
 
-        <section class="panel journal-panel" aria-labelledby="journalTitle">
-            <div class="section-heading">
-                <div><p class="step">LOCAL JOURNAL</p><h2 id="journalTitle">Recent saved days</h2></div>
-                <span id="journalCount" class="count">0 entries</span>
-            </div>
-            <p class="journal-note">Saving is explicit. Entries remain in a local SQLite file and are never uploaded by this application.</p>
-            <div id="forecastCard" class="forecast" hidden></div>
-            <div id="journalList" class="journal-list"><p class="empty">No saved estimates yet.</p></div>
-        </section>
-
-        <section class="panel dashboard-panel" aria-labelledby="dashboardTitle">
-            <div class="section-heading">
-                <div><p class="step">TRENDS & FORECAST</p><h2 id="dashboardTitle">Monthly dashboard</h2></div>
-                <input id="dashboardMonth" type="month">
-            </div>
-            <div class="goal-row">
-                <label>Monthly goal <input id="goalValue" type="number" min="0.1" step="0.1" placeholder="kg CO₂e"></label>
-                <button id="goalButton" class="secondary-button" type="button">Save goal</button>
-                <span id="goalProgress" class="muted"></span>
-            </div>
-            <div id="trendChart" class="trend-chart"><p class="empty">Sign in and save estimates to build trends.</p></div>
-            <div id="forecastOutput" class="forecast" hidden></div>
+        <section class="history-grid">
+            <section id="history" class="panel journal-panel" aria-labelledby="journalTitle">
+                <div class="section-heading"><div><p class="step">HISTORY</p><h2 id="journalTitle">Saved days</h2></div><span id="journalCount" class="count">0 entries</span></div>
+                <p class="journal-note">Your explicitly saved entries are encrypted on this computer.</p><div id="forecastCard" class="forecast" hidden></div><div id="journalList" class="journal-list"><p class="empty">Sign in to build your private history.</p></div>
+            </section>
+            <section id="insights" class="panel dashboard-panel" aria-labelledby="dashboardTitle">
+                <div class="section-heading"><div><p class="step">INSIGHTS</p><h2 id="dashboardTitle">Monthly progress</h2></div><input id="dashboardMonth" type="month" aria-label="Dashboard month"></div>
+                <div class="goal-row"><label>Monthly goal <input id="goalValue" type="number" min="0.1" step="0.1" placeholder="kg CO₂e"></label><button id="goalButton" class="secondary-button" type="button">Set goal</button><span id="goalProgress" class="muted"></span></div>
+                <div id="trendChart" class="trend-chart"><p class="empty">Sign in and save estimates to see your trend.</p></div><div id="forecastOutput" class="forecast" hidden></div>
+            </section>
         </section>
     </main>
+    <footer><span>Carbon Evidence Lab</span><span>Local research prototype · Results include uncertainty</span></footer>
     <script src="script.js"></script>
 </body>
 </html>
