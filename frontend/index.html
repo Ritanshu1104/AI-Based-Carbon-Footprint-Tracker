@@ -58,7 +58,13 @@
                     <div><p class="step">TODAY’S LOG</p><h2 id="entry-title">What did you do?</h2></div>
                     <span class="keyboard-hint">Ctrl + Enter</span>
                 </div>
-                <textarea id="activityText" rows="5" maxlength="5000" aria-describedby="inputHelp characterCount" placeholder="Example: I drove from Indore to Bhopal in my petrol car and ate a vegetarian lunch."></textarea>
+                <div id="activityEntries" class="activity-entries">
+                    <div class="activity-entry-row">
+                        <label for="activityText"><span>Activity 1</span><small>Write one activity in this row</small></label>
+                        <textarea id="activityText" class="activity-entry-input" rows="2" maxlength="1000" aria-describedby="inputHelp characterCount" placeholder="Example: I drove from Indore to Bhopal in my petrol car."></textarea>
+                    </div>
+                </div>
+                <button class="add-activity-button" id="addActivityButton" type="button"><span aria-hidden="true">+</span> Add another activity</button>
                 <div class="example-row" aria-label="Activity examples">
                     <span>Try:</span>
                     <button class="example-chip" type="button" data-example="I drove from Indore to Bhopal in my petrol car.">Road trip</button>
@@ -68,7 +74,7 @@
                 </div>
                 <div class="entry-actions">
                     <p id="inputHelp"><span class="privacy-icon">●</span> Processed by your local server</p>
-                    <span id="characterCount" class="character-count">0 / 5,000</span>
+                    <span id="characterCount" class="character-count">1 row · 0 / 5,000</span>
                     <button class="primary-button analyze-button" id="analyzeButton" type="button"><span>Calculate my impact</span><b aria-hidden="true">→</b></button>
                 </div>
                 <p id="errorMessage" class="error" role="alert" hidden></p>

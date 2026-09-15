@@ -1,5 +1,6 @@
 const ui = {
     text: document.getElementById('activityText'), analyze: document.getElementById('analyzeButton'),
+    entries: document.getElementById('activityEntries'), addActivity: document.getElementById('addActivityButton'),
     example: document.getElementById('exampleButton'), error: document.getElementById('errorMessage'),
     questionPanel: document.getElementById('questionPanel'), questionPrompt: document.getElementById('questionPrompt'),
     questionContext: document.getElementById('questionContext'), questionInput: document.getElementById('questionInput'),
@@ -72,10 +73,10 @@ async function api(path, {method = 'GET', body, form} = {}) {
 }
 
 async function analyzeText() {
-    const text = ui.text.value.trim();
-    if (!text) return showError('Describe at least one activity first.');
+    const entries = activityInputs().map(input => input.value.trim()).filter(Boolean);
+    if (!entries.length) return showError('Describe at least one activity first.');
     showError(''); setBusy(true, 'Reading activity log…');
-    try { render(await api('/api/analyze', {method: 'POST', body: {text}})); }
+    try { render(await api('/api/analyze', {method: 'POST', body: {entries}})); }
     catch (error) { showError(error.message); }
     finally { setBusy(false); }
 }
@@ -372,14 +373,23 @@ function renderResult(data) {
     renderCategoryChart(data.breakdown);
 
     const list = document.getElementById('breakdownList'); list.replaceChildren();
-    document.getElementById('activityCount').textContent = `${data.breakdown.length} calculated`;
+    const unrecognized = data.unrecognized_entries || [];
+    const totalEntries = data.breakdown.length + data.unresolved_activities.length + unrecognized.length;
+    document.getElementById('activityCount').textContent = `${data.breakdown.length} calculated · ${totalEntries} found`;
     data.breakdown.forEach(item => list.append(activityCard(item)));
     data.unresolved_activities.forEach(item => {
         const card = element('article', 'activity-card unresolved');
         card.append(element('strong', '', `${item.activity} · awaiting ${item.reason.replace('-', ' ')}`),
                     element('p', '', item.source_text || 'A required input is missing.')); list.append(card);
     });
-    if (!data.breakdown.length && !data.unresolved_activities.length) {
+    unrecognized.forEach(item => {
+        const card = element('article', 'activity-card unsupported');
+        card.append(element('strong', '', 'Kept in your log · calculation unavailable'),
+                    element('p', '', `“${item.source_text}”`),
+                    element('span', 'unsupported-note', 'This activity needs a supported emission factor or more detail.'));
+        list.append(card);
+    });
+    if (!data.breakdown.length && !data.unresolved_activities.length && !unrecognized.length) {
         list.append(element('p', 'empty', 'No supported activity was recognized. Include an activity and quantity, such as “travelled 12 km by bus”.'));
     }
     renderRecommendations(data.recommendations);
@@ -553,13 +563,57 @@ async function initialize() {
     await restoreAuth(); await Promise.all([loadJournal(), loadDashboard()]);
 }
 
+function activityInputs() {
+    return [...document.querySelectorAll('.activity-entry-input')];
+}
+
+function updateActivitySummary() {
+    const inputs = activityInputs();
+    const characters = inputs.reduce((total, input) => total + input.value.length, 0);
+    document.getElementById('characterCount').textContent = `${inputs.length} ${inputs.length === 1 ? 'row' : 'rows'} · ${characters.toLocaleString()} / 5,000`;
+    inputs.forEach((input, index) => {
+        const label = input.closest('.activity-entry-row')?.querySelector('label span');
+        if (label) label.textContent = `Activity ${index + 1}`;
+        const remove = input.closest('.activity-entry-row')?.querySelector('.remove-activity-button');
+        if (remove) remove.hidden = inputs.length === 1;
+    });
+}
+
+function addActivity(value = '', focus = true) {
+    if (activityInputs().length >= 30) return showError('A daily log can contain up to 30 activity rows.');
+    const row = element('div', 'activity-entry-row');
+    const label = document.createElement('label');
+    const input = document.createElement('textarea');
+    const remove = element('button', 'remove-activity-button', 'Remove');
+    input.className = 'activity-entry-input'; input.rows = 2; input.maxLength = 1000;
+    input.placeholder = 'Example: I ate a chicken meal for lunch.'; input.value = value;
+    remove.type = 'button'; remove.setAttribute('aria-label', 'Remove this activity');
+    label.append(element('span', '', ''), element('small', '', 'Write one activity in this row'));
+    row.append(label, input, remove); ui.entries.append(row); updateActivitySummary();
+    if (focus) input.focus();
+}
+
+function setActivityEntries(values) {
+    const inputs = activityInputs();
+    inputs.slice(1).forEach(input => input.closest('.activity-entry-row').remove());
+    ui.text.value = values[0] || '';
+    values.slice(1).forEach(value => addActivity(value, false));
+    updateActivitySummary(); ui.text.focus();
+}
+
 ui.analyze.addEventListener('click', analyzeText); ui.answer.addEventListener('click', submitAnswer);
-ui.example.addEventListener('click', () => { ui.text.value = 'I drove my car 25 km to college, ate a vegetarian lunch, and used 4 kWh of electricity.'; ui.text.focus(); });
+ui.example.addEventListener('click', () => setActivityEntries([
+    'I drove my car 25 km to college.', 'I ate a vegetarian lunch.', 'I used 4 kWh of electricity.'
+]));
 document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => {
-    ui.text.value = button.dataset.example;
-    ui.text.dispatchEvent(new Event('input'));
-    ui.text.focus();
+    setActivityEntries([button.dataset.example]);
 }));
+ui.addActivity.addEventListener('click', () => addActivity());
+ui.entries.addEventListener('click', event => {
+    const button = event.target.closest('.remove-activity-button');
+    if (!button) return;
+    button.closest('.activity-entry-row').remove(); updateActivitySummary();
+});
 document.getElementById('saveButton').addEventListener('click', saveCurrentResult);
 document.getElementById('exportButton').addEventListener('click', exportAudit);
 document.getElementById('loginButton').addEventListener('click', () => authenticate('login'));
@@ -567,9 +621,7 @@ document.getElementById('registerButton').addEventListener('click', () => authen
 document.getElementById('logoutButton').addEventListener('click', logout);
 document.getElementById('goalButton').addEventListener('click', saveGoal);
 document.getElementById('dashboardMonth').addEventListener('change', loadDashboard);
-ui.text.addEventListener('input', () => {
-    document.getElementById('characterCount').textContent = `${ui.text.value.length.toLocaleString()} / 5,000`;
-});
-ui.text.addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') analyzeText(); });
+ui.entries.addEventListener('input', updateActivitySummary);
+ui.entries.addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') analyzeText(); });
 document.getElementById('password').addEventListener('keydown', event => { if (event.key === 'Enter') authenticate('login'); });
 initialize();

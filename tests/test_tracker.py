@@ -140,6 +140,22 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["extracted_activities"][0]["label"], "Train")
 
+    def test_daily_log_analyzes_each_row_and_keeps_unsupported_entries(self):
+        response = self.client.post("/api/analyze", json={"entries": [
+            "I took a train for 5 km.",
+            "I used 3 kWh of electricity.",
+            "I replaced my smartphone.",
+        ]})
+        self.assertEqual(response.status_code, 200)
+        payload = response.get_json()
+        self.assertEqual(len(payload["breakdown"]), 2)
+        self.assertEqual(payload["unrecognized_entries"][0]["source_text"],
+                         "I replaced my smartphone.")
+
+    def test_daily_log_rejects_more_than_thirty_rows(self):
+        response = self.client.post("/api/analyze", json={"entries": ["walked"] * 31})
+        self.assertEqual(response.status_code, 400)
+
     def test_generic_car_is_clarified_then_completed(self):
         first = self.client.post("/api/analyze", json={"text": "I drove my car 10 km"})
         payload = first.get_json()

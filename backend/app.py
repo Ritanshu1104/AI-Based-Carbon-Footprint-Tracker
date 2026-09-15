@@ -73,6 +73,7 @@ def _response(session_id, activities):
         "session_id": session_id,
         "question": question,
         "extracted_activities": activities,
+        "unrecognized_entries": sessions.get(session_id, {}).get("unrecognized_entries", []),
         "privacy": "Session data is held in server memory and expires after one hour.",
     }
 
@@ -333,18 +334,36 @@ def analyze():
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"error": "Request body must be a JSON object"}), 400
-    text = data.get("text", "")
-    if not isinstance(text, str) or not text.strip():
+    entries = data.get("entries")
+    if entries is None:
+        text = data.get("text", "")
+        entries = [text] if isinstance(text, str) else []
+    if (not isinstance(entries, list) or len(entries) > 30 or
+            any(not isinstance(entry, str) for entry in entries)):
+        return jsonify({"error": "Send up to 30 activity entries as text"}), 400
+    entries = [entry.strip() for entry in entries if entry.strip()]
+    if not entries:
         return jsonify({"error": "Describe at least one daily activity"}), 400
-    if len(text) > 5000:
-        return jsonify({"error": "Activity description must be 5,000 characters or fewer"}), 400
+    if any(len(entry) > 1000 for entry in entries) or sum(map(len, entries)) > 5000:
+        return jsonify({"error": "Use at most 1,000 characters per activity and 5,000 in total"}), 400
 
     _remove_expired_sessions()
     session_id = str(uuid.uuid4())
     user = _user()
-    activities = extractor.extract_activities(text, user["user_id"] if user else None)
+    activities, unrecognized = [], []
+    for index, entry in enumerate(entries):
+        extracted = extractor.extract_activities(entry, user["user_id"] if user else None)
+        if extracted:
+            activities.extend(extracted)
+        else:
+            unrecognized.append({
+                "entry_id": f"entry-{index + 1}", "source_text": entry,
+                "reason": "activity-or-factor-not-supported",
+            })
+    text = "\n".join(entries)
     sessions[session_id] = {
         "activities": activities, "original_text": text, "updated_at": time.time(),
+        "unrecognized_entries": unrecognized,
         "user_id": user["user_id"] if user else None,
     }
     return jsonify(_response(session_id, activities))
