@@ -47,6 +47,8 @@ textarea:focus, input:focus { outline: 3px solid rgba(18,104,73,.14); border-col
 .provider-tool input, .provider-tool select { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: white; }
 .provider-tool input[type=file] { grid-column: 1 / 2; }
 .locate-button { font-size: .78rem; }
+.manual-distance-fallback { max-width: 650px; margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.55); }
+.manual-distance-fallback summary { color: var(--muted); font-size: .8rem; font-weight: 700; cursor: pointer; }
 .route-preview { margin-top: 16px; }
 .map-link { text-decoration: none; }
 .route-alternatives { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }

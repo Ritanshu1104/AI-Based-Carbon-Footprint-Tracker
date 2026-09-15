@@ -108,8 +108,15 @@ function renderQuestion(question) {
         });
         const reference = document.createElement('input'); reference.id = 'evidenceReference';
         reference.placeholder = 'Optional evidence note or reference';
-        evidence.append(source, reference); ui.questionInput.append(wrap, evidence);
-        if (question.field === 'distance_km') renderRouteTool();
+        evidence.append(source, reference);
+        if (question.field === 'distance_km') {
+            renderRouteTool();
+            const fallback = element('details', 'manual-distance-fallback');
+            fallback.append(element('summary', '', 'Cannot use Maps? Enter distance manually instead'), wrap, evidence);
+            ui.evidenceTools.append(fallback);
+        } else {
+            ui.questionInput.append(wrap, evidence);
+        }
         if (question.field === 'electricity_kwh') renderBillTool();
     }
     ui.questionPanel.scrollIntoView({behavior: 'smooth', block: 'center'});
@@ -117,7 +124,9 @@ function renderQuestion(question) {
 
 function renderRouteTool() {
     const box = element('div', 'provider-tool');
-    box.append(element('strong', '', 'Verify distance with a routing provider'));
+    box.append(element('strong', '', capabilities.routing?.google_routes ?
+        'Get distance automatically from Google Maps' :
+        'Automatic Google distance needs GOOGLE_MAPS_API_KEY'));
     const provider = document.createElement('select'); provider.id = 'routeProvider';
     if (capabilities.routing?.google_routes) {
         const option = document.createElement('option'); option.value = 'google'; option.textContent = 'Google Routes (addresses or coordinates)'; provider.append(option);
