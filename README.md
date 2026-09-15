@@ -1,228 +1,188 @@
-# 🌍 AI-Based Personal Carbon Footprint Tracker
+# Carbon Evidence Lab
 
-An intelligent web application that estimates a user's daily carbon footprint by analyzing natural language descriptions of their activities. Rather than navigating tedious forms or dropdown menus, users simply type what they did in plain English (e.g., *"I drove my car 25 km to the office and ate chicken for lunch"*), and the system automatically extracts activities, maps them to emission factors, and calculates total CO₂e emissions.
+Carbon Evidence Lab is a local research prototype for estimating a person's daily carbon footprint from natural-language activity logs. It records the evidence behind each estimate, reports a range alongside the point estimate, and asks one high-value clarification at a time when an input is missing or ambiguous.
 
----
+## What changed from the original demo
 
-## 📋 Table of Contents
+- Natural-language extraction covers every activity label in the repository's 1,000-row phrase dataset.
+- Quantity values retain their original text as evidence and miles are normalized to kilometres.
+- Generic cars and flights produce uncertainty ranges instead of silently hiding an average.
+- A clarification engine ranks missing facts by expected range reduction, decision sensitivity, and effort.
+- Appliance duration is never treated as electrical energy. The tracker requests kWh.
+- Every factor exposes its version, candidate values, geography, boundary, GWP basis, and data-quality status.
+- Each result includes an audit graph connecting user evidence, factor records, and calculated totals.
+- Recommendations state whether their direction remains stable across the available factor range.
+- Users can label quantities as estimates, measurements, bills/meters, or routing-service evidence.
+- Completed results can be explicitly saved to a local SQLite journal with a rolling baseline.
+- The interface includes category contribution bars and downloadable audit JSON.
+- Consent-gated Google Routes and OSRM providers can acquire road distance.
+- Local Tesseract OCR can extract candidate kWh and meter-reading differences from bill images.
+- A multinomial classifier handles unmatched phrasing and encrypted correction memory learns authenticated corrections.
+- Possible duplicate activities trigger a separate/remove decision before calculation.
+- Local accounts use PBKDF2 password hashing, hashed session tokens, and Fernet-encrypted journal payloads.
+- Monthly goals, daily trends, ARIMA forecasts, and an explicit rolling fallback are available per user.
+- A reproducible experiment runner compares keyword and hybrid extraction methods.
+- The Flask server hosts both the API and frontend, so the application starts with one command.
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Datasets](#-datasets-used)
-- [Installation](#-installation--setup)
-- [Usage](#-running-the-application)
-- [How It Works](#-how-it-works)
-- [Example Inputs](#-example-inputs)
-- [Future Enhancements](#-future-enhancements)
-- [Contributing](#-contributing)
-- [License](#-license)
+## Research status and factor limitation
 
----
+The included `Realistic_Emission_Factors_300.csv` does not identify an authoritative publisher, geography, lifecycle boundary, validity date, or global-warming-potential basis. Those transport and food values remain **illustrative and unverified**. Indian electricity uses the Central Electricity Authority Version 22.0 weighted-average grid factor for FY 2025–26: `0.675 tCO2/MWh`, equivalent to `0.675 kgCO2/kWh`. The vegetarian-meal factor remains a project placeholder.
 
-## ✨ Features
+This implementation is suitable for workflow research, experiments, and software evaluation. Replace the factor catalogue with cited, jurisdiction-appropriate sources before making scientific, environmental, or public accuracy claims.
 
-- **Natural Language Input** — No dropdowns or forms. The NLP engine understands free-form text descriptions.
-- **Realistic Emission Mapping** — Uses a custom dataset of 300+ emission factors with variations (Small, Medium, Large) for vehicles and meals.
-- **Demographic Benchmarking** — Compares the user's daily footprint against real-world demographic data for contextual insights.
-- **100% Free & Offline** — Leverages custom and public datasets with open-source Python libraries. No paid APIs or cloud dependencies required.
-- **Real-Time Feedback** — Instant calculation and breakdown of emissions by category (Transport, Food, etc.).
+## Architecture
 
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Backend** | Python 3.10+, Flask |
-| **Data Processing** | Pandas |
-| **NLP** | Regex-based pattern extraction (extensible to spaCy or HuggingFace Transformers) |
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript |
-| **Environment** | Conda |
-
----
-
-## 📁 Project Structure
-
-```
-carbon-tracker/
-├── data/
-│   ├── Carbon_Emission.csv                 # Demographic benchmark dataset
-│   ├── Daily_Activity_Text_Dataset.csv     # NLP text patterns dataset
-│   └── Realistic_Emission_Factors_300.csv  # Emission factors reference
-├── backend/
-│   ├── app.py                              # Flask API server
-│   ├── nlp_extractor.py                    # NLP/Regex extraction logic
-│   └── carbon_calculator.py                # Calculation & benchmarking logic
-├── frontend/
-│   ├── index.html                          # UI layout
-│   ├── style.css                           # Styling
-│   └── script.js                           # Frontend API calls
-├── README.md                               # Project documentation
-└── requirements.txt                        # Python dependencies
+```text
+User text
+  → deterministic extraction + trained fallback + correction memory
+  → ActivityExtractor: event + quantity + evidence + duplicate signals
+  → ClarificationEngine: question ranked by range reduction, decision sensitivity, and effort
+  → consented route evidence or local bill OCR when selected
+  → FactorStore: versioned candidate factors + provenance
+  → CarbonCalculator: point estimate + interval + recommendations
+  → Audit graph: events → factors → result
+  → encrypted per-user journal → goals, trends, ARIMA/fallback forecast
 ```
 
----
+| File | Responsibility |
+| --- | --- |
+| `backend/nlp_extractor.py` | Extract structured activity events while preserving source text |
+| `backend/clarification.py` | Select and apply one clarification at a time |
+| `backend/factor_store.py` | Load factors and expose provenance and quality metadata |
+| `backend/carbon_calculator.py` | Calculate estimates, intervals, recommendations, and audit graph |
+| `backend/journal.py` | Persist explicitly saved records in a local SQLite journal |
+| `backend/security.py` | Password hashing, token authentication, and journal encryption |
+| `backend/routing.py` | Consent-gated Google Routes and OSRM integration |
+| `backend/ocr_evidence.py` | Local Tesseract OCR and bill-quantity validation |
+| `backend/learning.py` | Trained fallback classifier and encrypted correction memory |
+| `backend/forecasting.py` | ARIMA forecast with rolling fallback |
+| `backend/app.py` | Serve the local application and JSON API |
+| `frontend/` | Accessible single-page research interface |
+| `tests/test_tracker.py` | NLP, calculation, provenance, API, and clarification regressions |
+| `experiments/evaluate_methods.py` | Keyword-versus-hybrid evaluation harness |
 
-## 📊 Datasets Used
+## Run locally
 
-This project uses three custom datasets to deliver realistic, data-driven carbon footprint estimates:
+Python 3.10 or newer is recommended.
 
-1. **`Realistic_Emission_Factors_300.csv`**  
-   Contains 300 emission factors for Transport and Food categories. Emission factors are averaged across variations (Small, Medium, Large) to provide accurate baseline values for activities like driving, flying, or eating specific meals.
-
-2. **`Daily_Activity_Text_Dataset.csv`**  
-   A 1,000-row dataset mapping natural language text descriptions to specific activities and quantities. Informs the NLP extraction patterns to ensure the app understands how users naturally describe their daily activities.
-
-3. **`Carbon_Emission.csv`**  
-   A demographic dataset containing lifestyle choices and annual carbon emissions. Used to calculate baseline daily averages for demographic benchmarking.
-
----
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-
-- **Python 3.10** or higher
-- **Conda** (download from [Anaconda](https://www.anaconda.com/))
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/[USERNAME]/carbon-tracker.git
-cd carbon-tracker
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python backend\app.py
 ```
 
-### Step 2: Create and Activate the Conda Environment
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000). The server keeps clarification sessions in memory for one hour; restarting it clears all sessions.
 
-```bash
-conda create -n carbon-tracker python=3.10 -y
-conda activate carbon-tracker
+For Google route evidence, configure a Routes API key before starting:
+
+```powershell
+$env:GOOGLE_MAPS_API_KEY = "your-key"
+python backend\app.py
 ```
 
-### Step 3: Install Dependencies
+Without a Google key, coordinate-based OSRM routing remains available. Every route request requires an explicit consent checkbox because locations are transmitted to the selected provider. Configure a self-hosted OSRM instance for dependable or production use:
 
-```bash
-conda install -c conda-forge flask flask-cors pandas -y
+```powershell
+$env:OSRM_BASE_URL = "https://your-osrm-host"
 ```
 
-Alternatively, if using `requirements.txt`:
+Bill-image OCR requires a local Tesseract 5 executable in `PATH`. Python OCR packages are installed through `requirements.txt`; the native Tesseract engine is installed separately for the operating system.
 
-```bash
-pip install -r requirements.txt
+Run the regression suite:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
----
+## API
 
-## 💻 Running the Application
+### `POST /api/analyze`
 
-### Start the Backend Server
-
-```bash
-cd backend
-python app.py
+```json
+{
+  "text": "I drove my car 25 km and used 4 kWh of electricity."
+}
 ```
 
-The Flask server will start on `http://localhost:5000`.
+The response contains the current estimate, supported range, extracted events, factor candidates, audit graph, and either `status: "complete"` or `status: "needs_clarification"` with one question.
 
-### Open the Frontend
+### `POST /api/clarify`
 
-Open `frontend/index.html` in any modern web browser (Chrome, Firefox, Edge, Safari).
-
-The application is now ready to use.
-
-### Run the Tests
-
-From the project root:
-
-```bash
-python -m unittest discover -s tests -v
+```json
+{
+  "session_id": "returned-by-analyze",
+  "question_id": "returned-by-analyze",
+  "answer": "Electric Car"
+}
 ```
 
-The regression suite covers activity extraction, distance-unit normalization,
-factor selection, audit fields, and API input validation.
+### `GET /api/factors`
 
----
+Returns the full factor catalogue and its quality warning.
 
-## 📝 Example Inputs
+### `GET /api/health`
 
-Test the NLP engine with these sample inputs:
+Returns service health, factor version, and session-storage mode.
 
-- `"I drove my car 25 km to the office."`
-- `"I flew 800 km today for a meeting."`
-- `"I ate chicken for lunch and watched TV for 4 hours."`
-- `"I travelled 15 km by bus and cycled 10 km."`
-- `"I took a train for 300 km and had a vegetarian meal."`
+### Authentication
 
----
+`POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, and `GET /api/auth/me` provide local multi-user access. Private endpoints use `Authorization: Bearer <token>`.
 
-## 🧠 How It Works
+### `GET /api/journal` and `POST /api/journal`
 
-The application follows a four-step pipeline:
+List encrypted per-user records or explicitly save a completed session. `DELETE /api/journal/<entry_id>` removes one record.
 
-1. **Text Input**  
-   User enters a natural language description of their daily activities.
+### Evidence and learning
 
-2. **NLP Extraction**  
-   The `nlp_extractor.py` module uses pattern matching (trained on `Daily_Activity_Text_Dataset.csv`) to identify activities (e.g., Car, Flight, Chicken) and quantities (e.g., 25 km, 1 meal).
+- `POST /api/evidence/route` obtains a consented route distance and attaches its provenance.
+- `POST /api/evidence/bill` performs local image OCR and returns ranked kWh candidates for review.
+- `POST /api/corrections` applies and privately remembers an authenticated extraction correction.
 
-3. **Factor Lookup**  
-   The `carbon_calculator.py` module processes `Realistic_Emission_Factors_300.csv`, stripping size variations (Small/Medium/Large) to calculate the mathematical average emission factor for each base activity.
+### Dashboard and goals
 
-4. **Calculation & Benchmarking**  
-   The system multiplies extracted quantity by the average emission factor and compares the total daily CO₂e against the average daily emission derived from `Carbon_Emission.csv` demographic data.
+- `GET /api/dashboard?month=YYYY-MM` returns daily totals, categories, goal progress, and forecast.
+- `PUT /api/goals/YYYY-MM` creates or updates a private monthly target.
+- `GET /api/capabilities` reports whether Google Routes, OSRM, Tesseract OCR, and ARIMA are available.
 
----
+## Supported activities
 
-## 🔮 Future Enhancements
+Transport includes cars by powertrain, bus, train, metro, taxi, motorcycle, scooter, auto rickshaw, bicycle, walking, and domestic/international flights. Food includes vegetarian, chicken, beef, fish, lamb, and pork meals. Electricity accepts kWh directly; appliance-hour descriptions trigger a request for actual or estimated kWh.
 
-- **Advanced NLP**: Integrate spaCy or HuggingFace Transformers (e.g., BERT) to handle complex, varied, and ambiguous sentence structures.
-- **Uncertainty-Aware Clarification**: Ask the single question that most reduces the estimated CO₂e range when a log omits important details such as vehicle fuel or occupancy.
-- **User Accounts & History**: Add SQLite database to track carbon footprints over weeks or months.
-- **Expanded Categories**: Include electricity usage, international shipping factors, and additional food items.
-- **Gamification**: Introduce a "Green Score" or show equivalent environmental impacts (e.g., "Your choices saved the equivalent of 2 trees!").
-- **Data Visualization**: Add charts and trends for historical footprint analysis.
+## Patent and publication work
 
----
+The potentially differentiating research direction is the combined workflow: evidence-preserving natural-language events, source-aware factor candidates, uncertainty propagation, and sequential questions chosen by their expected reduction of decision uncertainty. That combination still requires a professional prior-art search, claim drafting, experiments, and legal review. A working prototype does not establish novelty, inventive step, patentability, or freedom to operate.
 
-## 🤝 Contributing
+Keep technical novelty documents and unpublished experimental details private until the project guide or patent professional approves disclosure. Public commits, demonstrations, conference submissions, and repository pushes can affect filing strategy in some jurisdictions.
 
-Contributions are welcome! To contribute:
+## Suggested evaluation
 
-1. **Fork** the repository on GitHub.
-2. **Create a feature branch** for your changes:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. **Make your changes** and test them thoroughly.
-4. **Commit** with clear, descriptive messages:
-   ```bash
-   git commit -m "Add feature: description of changes"
-   ```
-5. **Push** to your fork:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-6. **Open a Pull Request** with a description of your changes.
+1. **Extraction:** entity, activity, quantity, and unit accuracy on held-out natural-language logs.
+2. **Calibration:** how often reported CO2e intervals contain a trusted reference calculation.
+3. **Question utility:** uncertainty reduction per user question against fixed-form and ask-everything baselines.
+4. **Decision stability:** whether recommendations remain unchanged after missing facts are resolved.
+5. **Usability:** completion rate, time, question count, and perceived trust.
 
-### Guidelines
+Run the current engineering comparison:
 
-- Follow PEP 8 for Python code style.
-- Update tests and documentation for new features.
-- Keep commits atomic and descriptive.
-- Reference any related issues in your PR description.
+```powershell
+.\.venv\Scripts\python.exe experiments\evaluate_methods.py
+```
 
----
+The bundled data is templated, so its scores are regression evidence rather than publication evidence. Collect an independent held-out corpus before a conference submission.
 
+## Privacy and deployment notes
 
+- The current application has local accounts and no remote account service.
+- Unsaved activity text is stored only in process memory for clarification and expires after one hour.
+- Clicking **Save to local journal** encrypts activity text and the audit result before writing to `data/carbon_journal.db`.
+- Passwords use PBKDF2-HMAC-SHA256; bearer tokens are stored as hashes; the encryption key is local and excluded from Git.
+- Losing `data/.carbon.key` makes existing encrypted journal and correction records unreadable. Back it up securely for any real use.
+- Production deployment still needs HTTPS, rate limiting, secure key management, recovery controls, database migration tooling, and a privacy review.
 
-## 📧 Contact & Support
+## Authoritative references integrated
 
-For questions, issues, or suggestions, please:
-
-<!-- - Open an [issue](https://github.com/[USERNAME]/carbon-tracker/issues) on GitHub. -->
-- Reach out via email: **[ritanshupm@gmail.com]**.
-
----
-
-**Happy tracking! 🌱**
+- Central Electricity Authority, *CO2 Baseline Database for the Indian Power Sector*, Version 22.0, August 2026: <https://cea.nic.in/wp-content/uploads/baseline/2026/09/User_Guide__Version_22.0.pdf>
+- OSRM HTTP API route service: <https://project-osrm.org/docs/v5.24.0/api/#route-service>
+- Tesseract 5 documentation: <https://tesseract-ocr.github.io/tessdoc/>
+- statsmodels ARIMA documentation: <https://www.statsmodels.org/stable/generated/statsmodels.tsa.arima.model.ARIMA.html>

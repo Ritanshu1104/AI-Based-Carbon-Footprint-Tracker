@@ -1,39 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Carbon Footprint Tracker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An evidence-aware personal carbon footprint research prototype.">
+    <title>Carbon Evidence Lab</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🌍 AI Carbon Footprint Tracker</h1>
-            <p>Describe your day in plain text. We'll calculate your impact using real-world demographic & emission datasets.</p>
+    <main class="shell">
+        <section class="account-bar" aria-label="Private account">
+            <div><strong>Private workspace</strong><span id="authStatus">Sign in to save encrypted history and corrections.</span></div>
+            <div id="authForm" class="auth-form">
+                <input id="username" autocomplete="username" placeholder="Username">
+                <input id="password" type="password" autocomplete="current-password" placeholder="Password (10+ characters)">
+                <button id="loginButton" class="secondary-button" type="button">Sign in</button>
+                <button id="registerButton" class="secondary-button" type="button">Create local account</button>
+            </div>
+            <button id="logoutButton" class="text-button" type="button" hidden>Sign out</button>
+        </section>
+        <header class="hero">
+            <div>
+                <p class="eyebrow">RESEARCH PROTOTYPE · FACTOR SET 1.0</p>
+                <h1>Turn daily activity into an estimate you can inspect.</h1>
+                <p class="lede">Describe what you did. The tracker preserves your words, shows uncertainty, and asks for one useful missing detail at a time.</p>
+            </div>
+            <div class="method-chip"><span></span> Evidence-aware calculation</div>
         </header>
 
-        <div class="input-section">
-            <textarea id="activityText" placeholder="Example: I drove my car 25 km to the office. I ate chicken for lunch. I watched TV for 3 hours." rows="4"></textarea>
-            <button onclick="analyzeText()">Calculate Footprint</button>
-        </div>
+        <section class="entry-card" aria-labelledby="entry-title">
+            <div class="section-heading">
+                <div><p class="step">01 · ACTIVITY LOG</p><h2 id="entry-title">What did you do today?</h2></div>
+                <button class="text-button" id="exampleButton" type="button">Use example</button>
+            </div>
+            <textarea id="activityText" rows="5" maxlength="5000" placeholder="I drove my car 25 km to college, ate a vegetarian lunch, and used 4 kWh of electricity."></textarea>
+            <div class="entry-actions">
+                <p>Your log stays in this local server's memory for up to one hour.</p>
+                <button class="primary-button" id="analyzeButton" type="button">Build estimate <span>→</span></button>
+            </div>
+            <p id="errorMessage" class="error" role="alert" hidden></p>
+        </section>
 
-        <div id="results" class="results-section" style="display: none;">
-            <div class="benchmark-card">
-                <h3>📊 Demographic Benchmark</h3>
-                <p id="benchmarkMsg"></p>
+        <section id="questionPanel" class="question-card" aria-live="polite" hidden>
+            <p class="step">02 · NARROW THE RANGE</p>
+            <h2 id="questionPrompt"></h2>
+            <p id="questionContext" class="muted"></p>
+            <div id="questionInput"></div>
+            <div id="evidenceTools"></div>
+            <button class="primary-button compact" id="answerButton" type="button">Apply answer</button>
+        </section>
+
+        <section id="results" class="results" aria-live="polite" hidden>
+            <div class="results-head">
+                <div><p class="step">03 · TRACEABLE RESULT</p><h2>Your current estimate</h2></div>
+                <span id="confidenceBadge" class="status-badge"></span>
             </div>
 
-            <div class="total-footprint">
-                <h2>Total CO₂: <span id="totalCO2">0</span> kg</h2>
+            <div class="summary-grid">
+                <article class="total-card">
+                    <p>Point estimate</p>
+                    <strong><span id="totalCO2">0</span> <small>kg CO₂e</small></strong>
+                    <div class="range-line"><span>Supported range</span><b id="totalRange">0–0 kg</b></div>
+                </article>
+                <article class="benchmark-card">
+                    <p>Context only</p>
+                    <h3>Dataset benchmark</h3>
+                    <p id="benchmarkMsg"></p>
+                </article>
             </div>
 
-            <div class="breakdown">
-                <h3>Activity Breakdown</h3>
-                <div id="breakdownList"></div>
+            <div class="result-actions">
+                <button class="secondary-button" id="saveButton" type="button">Save to local journal</button>
+                <button class="secondary-button" id="exportButton" type="button">Export audit JSON</button>
+                <span id="saveStatus" class="muted"></span>
             </div>
-        </div>
-    </div>
+
+            <section class="panel">
+                <h3>Category contribution</h3>
+                <div id="categoryChart" class="category-chart"></div>
+            </section>
+
+            <section class="panel">
+                <div class="section-heading"><h3>Activity breakdown</h3><span id="activityCount" class="count"></span></div>
+                <div id="breakdownList" class="breakdown-list"></div>
+            </section>
+
+            <section id="recommendationPanel" class="panel" hidden>
+                <h3>Lower-impact options</h3>
+                <div id="recommendationList"></div>
+            </section>
+
+            <details class="audit-panel">
+                <summary>Method, evidence and audit record</summary>
+                <div id="auditContent"></div>
+            </details>
+        </section>
+
+        <section class="panel journal-panel" aria-labelledby="journalTitle">
+            <div class="section-heading">
+                <div><p class="step">LOCAL JOURNAL</p><h2 id="journalTitle">Recent saved days</h2></div>
+                <span id="journalCount" class="count">0 entries</span>
+            </div>
+            <p class="journal-note">Saving is explicit. Entries remain in a local SQLite file and are never uploaded by this application.</p>
+            <div id="forecastCard" class="forecast" hidden></div>
+            <div id="journalList" class="journal-list"><p class="empty">No saved estimates yet.</p></div>
+        </section>
+
+        <section class="panel dashboard-panel" aria-labelledby="dashboardTitle">
+            <div class="section-heading">
+                <div><p class="step">TRENDS & FORECAST</p><h2 id="dashboardTitle">Monthly dashboard</h2></div>
+                <input id="dashboardMonth" type="month">
+            </div>
+            <div class="goal-row">
+                <label>Monthly goal <input id="goalValue" type="number" min="0.1" step="0.1" placeholder="kg CO₂e"></label>
+                <button id="goalButton" class="secondary-button" type="button">Save goal</button>
+                <span id="goalProgress" class="muted"></span>
+            </div>
+            <div id="trendChart" class="trend-chart"><p class="empty">Sign in and save estimates to build trends.</p></div>
+            <div id="forecastOutput" class="forecast" hidden></div>
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>

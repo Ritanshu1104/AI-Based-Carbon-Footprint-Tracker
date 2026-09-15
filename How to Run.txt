@@ -1,6 +1,40 @@
-conda activate carbon-tracker
+CARBON EVIDENCE LAB — LOCAL START
 
-python app.py
+From the project root in PowerShell:
 
+1. Create an environment if needed:
+   python -m venv .venv
 
-I drove my car 25 km to the office. I ate chicken for lunch
+2. Activate it:
+   .\.venv\Scripts\Activate.ps1
+
+3. Install the small runtime dependency set:
+   python -m pip install -r requirements.txt
+
+4. Start the complete application:
+   python backend\app.py
+
+5. Open:
+   http://127.0.0.1:5000
+
+6. Create a local account in the page to enable encrypted journal history,
+   corrections, goals, trends, and forecasts.
+
+OPTIONAL PROVIDERS
+
+Google route evidence:
+   $env:GOOGLE_MAPS_API_KEY = "your-key"
+
+Self-hosted OSRM:
+   $env:OSRM_BASE_URL = "https://your-osrm-host"
+
+Bill-image OCR:
+   Install Tesseract 5 separately and ensure tesseract.exe is in PATH.
+
+Run tests:
+   .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+
+Example:
+   I drove my car 25 km to college, ate a vegetarian lunch, and used 4 kWh of electricity.
+
+The factor data is marked illustrative and unverified. Replace it with cited regional factors before scientific or public accuracy claims.

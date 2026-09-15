@@ -3,3 +3,13 @@ __pycache__/
 .venv/
 .venv*/
 .pytest_cache/
+
+# Patent-sensitive working analysis: keep local until disclosure is approved.
+docs/TECHNOLOGY_NOVELTY_LANDSCAPE_2026.md
+
+# Local activity journal; it can contain personal activity text.
+data/*.db
+data/*.db-*
+data/.carbon.key
+docs/private/
+experiments/results/
