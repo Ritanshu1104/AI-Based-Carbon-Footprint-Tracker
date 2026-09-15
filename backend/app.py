@@ -6,6 +6,7 @@ import uuid
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 from carbon_calculator import CarbonCalculator
 from clarification import ClarificationEngine
@@ -20,6 +21,7 @@ from security import AuthRepository, DataCipher
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
 app.config["MAX_CONTENT_LENGTH"] = 9 * 1024 * 1024
 CORS(app, resources={r"/api/*": {"origins": [
@@ -96,7 +98,29 @@ def capabilities():
         "hybrid_nlp": {"classifier": "multinomial-naive-bayes-v1",
                        "correction_memory": "encrypted-local"},
         "electricity_factor": factor_store.records["Electricity"],
+        "google_map": {"browser_map_available": bool(os.environ.get("GOOGLE_MAPS_BROWSER_KEY"))},
     })
+
+
+@app.get("/api/maps/config")
+def maps_config():
+    """Expose only the referrer-restricted browser key used by Maps JavaScript."""
+    key = os.environ.get("GOOGLE_MAPS_BROWSER_KEY")
+    if not key:
+        return jsonify({"available": False})
+    return jsonify({"available": True, "browser_key": key})
+
+
+@app.post("/api/places/autocomplete")
+def place_autocomplete():
+    data = request.get_json(silent=True) or {}
+    if data.get("consent_external_processing") is not True:
+        return jsonify({"error": "Location consent is required before requesting place suggestions"}), 400
+    try:
+        suggestions = routes.autocomplete(data.get("query"), data.get("session_token"))
+    except ValueError as error:
+        return jsonify({"error": str(error)}), 400
+    return jsonify({"suggestions": suggestions, "provider": "Google Maps"})
 
 
 @app.post("/api/auth/register")

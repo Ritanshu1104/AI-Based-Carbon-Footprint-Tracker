@@ -69,6 +69,16 @@
                 </article>
             </div>
 
+            <section id="routePreviewPanel" class="panel route-preview" hidden>
+                <div class="section-heading">
+                    <div><p class="step">VERIFIED ROUTE</p><h3 id="routePreviewTitle">Google Maps distance</h3></div>
+                    <a id="openGoogleMaps" class="secondary-button map-link" target="_blank" rel="noopener">Open in Google Maps</a>
+                </div>
+                <p id="routePreviewSummary" class="muted"></p>
+                <div id="routeAlternatives" class="route-alternatives"></div>
+                <div id="routeMap" class="route-map" aria-label="Verified route map" hidden></div>
+            </section>
+
             <div class="result-actions">
                 <button class="secondary-button" id="saveButton" type="button">Save to local journal</button>
                 <button class="secondary-button" id="exportButton" type="button">Export audit JSON</button>

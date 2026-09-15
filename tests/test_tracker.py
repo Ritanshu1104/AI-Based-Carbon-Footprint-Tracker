@@ -269,6 +269,34 @@ class ProviderAndSecurityTests(unittest.TestCase):
         })
         self.assertEqual(result["distance_km"], 12.345)
 
+    def test_google_route_returns_polyline_and_alternatives(self):
+        service = RouteEvidenceService(google_key="test-key")
+        service._json = lambda _request: {"routes": [
+            {"distanceMeters": 10000, "duration": "900s",
+             "polyline": {"encodedPolyline": "first"}},
+            {"distanceMeters": 11250, "duration": "1020s",
+             "polyline": {"encodedPolyline": "second"}},
+        ]}
+        result = service.route({
+            "provider": "google", "consent_external_processing": True,
+            "origin": "Indore, Madhya Pradesh", "destination": "Bhopal, Madhya Pradesh",
+            "mode": "driving", "route_index": 1,
+        })
+        self.assertEqual(result["distance_km"], 11.25)
+        self.assertEqual(result["selected_index"], 1)
+        self.assertEqual(result["encoded_polyline"], "second")
+        self.assertEqual(len(result["alternatives"]), 2)
+
+    def test_google_place_autocomplete_normalizes_suggestions(self):
+        service = RouteEvidenceService(google_key="test-key")
+        service._json = lambda _request: {"suggestions": [{"placePrediction": {
+            "placeId": "place-1", "text": {"text": "Bhopal, Madhya Pradesh, India"}
+        }}]}
+        suggestions = service.autocomplete("Bhopal", "session-1")
+        self.assertEqual(suggestions, [{
+            "place_id": "place-1", "text": "Bhopal, Madhya Pradesh, India"
+        }])
+
     def test_bill_text_extracts_kwh_and_meter_difference(self):
         service = BillOcrService()
         direct = service.extract_from_text("Energy consumed: 245 kWh")

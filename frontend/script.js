@@ -19,6 +19,10 @@ let currentData = null;
 let capabilities = {};
 let authToken = localStorage.getItem('carbonAuthToken');
 let signedInUser = null;
+let mapsConfig = {available: false};
+let googleMapsPromise = null;
+let lastRouteRequest = null;
+const placeSessionToken = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
 
 function element(tag, className, text) {
     const node = document.createElement(tag);
@@ -68,6 +72,7 @@ async function analyzeText() {
 function render(data) {
     currentData = data; currentSession = data.session_id; currentQuestion = data.question;
     renderQuestion(data.question); renderResult(data);
+    if (data.route_evidence) renderRouteEvidence(data.route_evidence);
 }
 
 function renderQuestion(question) {
@@ -127,6 +132,12 @@ function renderRouteTool() {
     const destination = document.createElement('input'); destination.id = 'routeDestination';
     destination.placeholder = googleAvailable ? 'Destination address' : 'Destination: latitude, longitude';
     destination.value = googleAvailable ? (routeHints.route_destination || '') : '';
+    const originSuggestions = document.createElement('datalist'); originSuggestions.id = 'routeOriginSuggestions';
+    const destinationSuggestions = document.createElement('datalist'); destinationSuggestions.id = 'routeDestinationSuggestions';
+    if (googleAvailable) {
+        origin.setAttribute('list', originSuggestions.id);
+        destination.setAttribute('list', destinationSuggestions.id);
+    }
     const locate = element('button', 'secondary-button locate-button', 'Use my current location');
     locate.type = 'button'; locate.addEventListener('click', () => useCurrentLocation(origin));
     const consentLabel = element('label', 'consent');
@@ -134,7 +145,8 @@ function renderRouteTool() {
     consentLabel.append(consent, element('span', '', 'I consent to sending these locations to the selected routing provider.'));
     const button = element('button', 'secondary-button', 'Verify route'); button.type = 'button';
     button.addEventListener('click', verifyRoute);
-    box.append(provider, origin, destination, locate, consentLabel, button,
+    box.append(provider, origin, destination, locate, originSuggestions, destinationSuggestions,
+        consentLabel, button,
         element('p', 'provider-note', capabilities.routing?.privacy_notice || 'Location consent is required.'));
     ui.evidenceTools.append(box);
     provider.addEventListener('change', () => {
@@ -147,6 +159,30 @@ function renderRouteTool() {
     [origin, destination].forEach(input => input.addEventListener('input', () => {
         delete input.dataset.latitude; delete input.dataset.longitude;
     }));
+    if (googleAvailable) {
+        bindPlaceSuggestions(origin, originSuggestions, consent);
+        bindPlaceSuggestions(destination, destinationSuggestions, consent);
+    }
+}
+
+function bindPlaceSuggestions(input, datalist, consent) {
+    let timer;
+    input.addEventListener('input', () => {
+        clearTimeout(timer);
+        if (!consent.checked || input.value.trim().length < 2) return;
+        timer = setTimeout(async () => {
+            try {
+                const result = await api('/api/places/autocomplete', {method: 'POST', body: {
+                    query: input.value.trim(), session_token: placeSessionToken,
+                    consent_external_processing: true,
+                }});
+                datalist.replaceChildren(...result.suggestions.map(item => {
+                    const option = document.createElement('option'); option.value = item.text;
+                    option.dataset.placeId = item.place_id; return option;
+                }));
+            } catch (error) { showError(error.message); }
+        }, 300);
+    });
 }
 
 function routeLocation(input, provider) {
@@ -178,13 +214,85 @@ function useCurrentLocation(originInput) {
 async function verifyRoute() {
     try {
         const provider = document.getElementById('routeProvider').value;
+        const activity = currentData?.extracted_activities?.find(item => item.event_id === currentQuestion.event_id);
+        const routeMode = {
+            bus: 'transit', train: 'transit', metro: 'transit', bike: 'cycling',
+            bicycle: 'cycling', walking: 'walking', walk: 'walking',
+            motorcycle: 'two_wheeler', motorbike: 'two_wheeler', scooter: 'two_wheeler',
+        }[activity?.attributes?.route_mode] || 'driving';
         const payload = {
             session_id: currentSession, event_id: currentQuestion.event_id, provider,
             origin: routeLocation(document.getElementById('routeOrigin'), provider),
             destination: routeLocation(document.getElementById('routeDestination'), provider),
+            mode: routeMode,
             consent_external_processing: document.getElementById('routeConsent').checked,
         };
+        lastRouteRequest = payload;
         render(await api('/api/evidence/route', {method: 'POST', body: payload}));
+    } catch (error) { showError(error.message); }
+}
+
+function googleMapsUrl(origin, destination, mode = 'driving') {
+    const locationText = value => typeof value === 'string' ? value : `${value.latitude},${value.longitude}`;
+    const parameters = new URLSearchParams({
+        api: '1', origin: locationText(origin), destination: locationText(destination),
+        travelmode: mode === 'two_wheeler' ? 'driving' : mode,
+    });
+    return `https://www.google.com/maps/dir/?${parameters}`;
+}
+
+async function selectRouteAlternative(index) {
+    if (!lastRouteRequest) return;
+    try {
+        render(await api('/api/evidence/route', {
+            method: 'POST', body: {...lastRouteRequest, route_index: index},
+        }));
+    } catch (error) { showError(error.message); }
+}
+
+function renderRouteEvidence(route) {
+    const panel = document.getElementById('routePreviewPanel');
+    panel.hidden = false;
+    document.getElementById('routePreviewTitle').textContent = `${route.distance_km.toFixed(3)} km via ${route.provider}`;
+    document.getElementById('routePreviewSummary').textContent =
+        `Provider distance: ${route.distance_km.toFixed(3)} km${route.duration ? ` · duration ${route.duration}` : ''}.`;
+    const link = document.getElementById('openGoogleMaps');
+    if (lastRouteRequest) link.href = googleMapsUrl(lastRouteRequest.origin, lastRouteRequest.destination, lastRouteRequest.mode);
+    link.hidden = !lastRouteRequest;
+
+    const alternatives = document.getElementById('routeAlternatives');
+    alternatives.replaceChildren();
+    (route.alternatives || []).forEach((item, index) => {
+        const button = element('button', index === route.selected_index ? 'route-choice selected' : 'route-choice',
+            `Route ${index + 1}: ${item.distance_km.toFixed(3)} km${item.duration ? ` · ${item.duration}` : ''}`);
+        button.type = 'button'; button.disabled = index === route.selected_index;
+        button.addEventListener('click', () => selectRouteAlternative(index));
+        alternatives.append(button);
+    });
+    if (route.encoded_polyline && mapsConfig.available) showGoogleRoute(route.encoded_polyline);
+}
+
+function loadGoogleMaps() {
+    if (window.google?.maps) return Promise.resolve(window.google.maps);
+    if (!mapsConfig.available) return Promise.reject(new Error('Embedded Google Map is not configured.'));
+    if (!googleMapsPromise) googleMapsPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(mapsConfig.browser_key)}&v=weekly&libraries=geometry`;
+        script.async = true; script.onload = () => resolve(window.google.maps);
+        script.onerror = () => reject(new Error('Google Maps could not be loaded.'));
+        document.head.append(script);
+    });
+    return googleMapsPromise;
+}
+
+async function showGoogleRoute(encodedPolyline) {
+    try {
+        const maps = await loadGoogleMaps();
+        const path = maps.geometry.encoding.decodePath(encodedPolyline);
+        const mapElement = document.getElementById('routeMap'); mapElement.hidden = false;
+        const map = new maps.Map(mapElement, {mapTypeControl: false, streetViewControl: false});
+        new maps.Polyline({path, map, strokeColor: '#126849', strokeOpacity: 0.95, strokeWeight: 6});
+        const bounds = new maps.LatLngBounds(); path.forEach(point => bounds.extend(point)); map.fitBounds(bounds, 40);
     } catch (error) { showError(error.message); }
 }
 
@@ -406,7 +514,9 @@ function exportAudit() {
 
 async function initialize() {
     document.getElementById('dashboardMonth').value = new Date().toISOString().slice(0, 7);
-    try { capabilities = await api('/api/capabilities'); } catch (error) { showError(error.message); }
+    try {
+        [capabilities, mapsConfig] = await Promise.all([api('/api/capabilities'), api('/api/maps/config')]);
+    } catch (error) { showError(error.message); }
     await restoreAuth(); await Promise.all([loadJournal(), loadDashboard()]);
 }
 

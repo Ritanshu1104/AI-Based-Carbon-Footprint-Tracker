@@ -9,6 +9,7 @@ import urllib.request
 
 class RouteEvidenceService:
     GOOGLE_URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
+    PLACES_AUTOCOMPLETE_URL = "https://places.googleapis.com/v1/places:autocomplete"
 
     def __init__(self, google_key=None, osrm_url=None, timeout=12):
         self.google_key = google_key or os.environ.get("GOOGLE_MAPS_API_KEY")
@@ -38,6 +39,34 @@ class RouteEvidenceService:
             return self._osrm(payload)
         raise ValueError("Provider must be google or osrm")
 
+    def autocomplete(self, query, session_token=None):
+        if not self.google_key:
+            raise ValueError("Google Places is unavailable; configure GOOGLE_MAPS_API_KEY")
+        query = str(query or "").strip()
+        if len(query) < 2 or len(query) > 160:
+            raise ValueError("Place query must contain between 2 and 160 characters")
+        body = {"input": query, "includedRegionCodes": ["in"], "languageCode": "en"}
+        if session_token:
+            body["sessionToken"] = str(session_token)[:128]
+        request = urllib.request.Request(
+            self.PLACES_AUTOCOMPLETE_URL, data=json.dumps(body).encode("utf-8"), method="POST",
+            headers={
+                "Content-Type": "application/json", "X-Goog-Api-Key": self.google_key,
+                "X-Goog-FieldMask": (
+                    "suggestions.placePrediction.placeId,"
+                    "suggestions.placePrediction.text.text"
+                ),
+            },
+        )
+        data = self._json(request)
+        suggestions = []
+        for item in data.get("suggestions", []):
+            prediction = item.get("placePrediction") or {}
+            text = (prediction.get("text") or {}).get("text")
+            if text and prediction.get("placeId"):
+                suggestions.append({"place_id": prediction["placeId"], "text": text})
+        return suggestions[:8]
+
     def _google(self, payload):
         if not self.google_key:
             raise ValueError("Google Routes is unavailable; configure GOOGLE_MAPS_API_KEY")
@@ -46,7 +75,7 @@ class RouteEvidenceService:
             "destination": self._google_location(payload.get("destination")),
             "travelMode": self._google_mode(payload.get("mode", "driving")),
             "routingPreference": "TRAFFIC_UNAWARE",
-            "computeAlternativeRoutes": False,
+            "computeAlternativeRoutes": payload.get("mode", "driving") == "driving",
             "languageCode": "en-US",
             "units": "METRIC",
         }
@@ -54,18 +83,25 @@ class RouteEvidenceService:
             self.GOOGLE_URL, data=json.dumps(body).encode("utf-8"), method="POST",
             headers={
                 "Content-Type": "application/json", "X-Goog-Api-Key": self.google_key,
-                "X-Goog-FieldMask": "routes.distanceMeters,routes.duration,routes.routeLabels",
+                "X-Goog-FieldMask": (
+                    "routes.distanceMeters,routes.duration,routes.routeLabels,"
+                    "routes.polyline.encodedPolyline"
+                ),
             },
         )
         data = self._json(request)
         routes = data.get("routes", [])
         if not routes:
             raise ValueError("Google Routes returned no route")
-        route = routes[0]
-        return self._result(
-            "Google Routes API", route["distanceMeters"], route.get("duration"),
+        alternatives = [self._result(
+            "Google Routes API", item["distanceMeters"], item.get("duration"),
             "https://developers.google.com/maps/documentation/routes",
-        )
+            item.get("polyline", {}).get("encodedPolyline"),
+        ) for item in routes]
+        selected_index = min(max(int(payload.get("route_index", 0)), 0), len(alternatives) - 1)
+        selected = alternatives[selected_index]
+        selected.update({"alternatives": alternatives, "selected_index": selected_index})
+        return selected
 
     def _osrm(self, payload):
         origin = self._coordinates(payload.get("origin"), "origin")
@@ -125,9 +161,12 @@ class RouteEvidenceService:
                 "transit": "TRANSIT", "two_wheeler": "TWO_WHEELER"}.get(mode, "DRIVE")
 
     @staticmethod
-    def _result(provider, distance_meters, duration, source_url):
-        return {
+    def _result(provider, distance_meters, duration, source_url, encoded_polyline=None):
+        result = {
             "distance_km": round(float(distance_meters) / 1000, 3),
             "duration": duration, "provider": provider,
             "evidence_type": "externally-verified-route", "source_url": source_url,
         }
+        if encoded_polyline:
+            result["encoded_polyline"] = encoded_polyline
+        return result
