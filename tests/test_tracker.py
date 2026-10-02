@@ -285,6 +285,22 @@ class ProviderAndSecurityTests(unittest.TestCase):
         })
         self.assertEqual(result["distance_km"], 12.345)
 
+    def test_osrm_accepts_readable_degree_coordinates(self):
+        service = RouteEvidenceService(osrm_url="https://routing.invalid")
+        service._json = lambda _request: {"code": "Ok", "routes": [{
+            "distance": 191200.0, "duration": 10000.0
+        }]}
+        result = service.route({
+            "provider": "osrm", "consent_external_processing": True,
+            "origin": "latitude 22.7196° N and longitude 75.8577° E",
+            "destination": "latitude 23.2599° N and longitude 77.4126° E",
+        })
+        self.assertEqual(result["distance_km"], 191.2)
+
+    def test_coordinate_parser_applies_south_and_west_signs(self):
+        self.assertEqual(RouteEvidenceService._coordinates("33.9 S, 18.4 E", "origin"),
+                         (-33.9, 18.4))
+
     def test_google_route_returns_polyline_and_alternatives(self):
         service = RouteEvidenceService(google_key="test-key")
         service._json = lambda _request: {"routes": [

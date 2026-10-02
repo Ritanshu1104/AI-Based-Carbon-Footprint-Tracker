@@ -89,6 +89,7 @@ function render(data) {
 
 function renderQuestion(question) {
     ui.questionPanel.hidden = !question;
+    ui.answer.hidden = false;
     ui.questionInput.replaceChildren(); ui.evidenceTools.replaceChildren();
     if (!question) return;
     ui.questionPrompt.textContent = question.prompt;
@@ -125,8 +126,11 @@ function renderQuestion(question) {
         if (question.field === 'distance_km') {
             renderRouteTool();
             const fallback = element('details', 'manual-distance-fallback');
-            fallback.append(element('summary', '', 'Cannot use Maps? Enter distance manually instead'), wrap, evidence);
+            const manualButton = element('button', 'primary-button compact', 'Use manual distance');
+            manualButton.type = 'button'; manualButton.addEventListener('click', submitAnswer);
+            fallback.append(element('summary', '', 'Cannot use Maps? Enter distance manually instead'), wrap, evidence, manualButton);
             ui.evidenceTools.append(fallback);
+            ui.answer.hidden = true;
         } else {
             ui.questionInput.append(wrap, evidence);
         }
@@ -215,9 +219,20 @@ function routeLocation(input, provider) {
         if (!input.value.trim()) throw new Error('Both route locations are required.');
         return input.value.trim();
     }
-    const parts = input.value.split(',').map(Number);
-    if (parts.length !== 2 || parts.some(Number.isNaN)) throw new Error('OSRM locations must use latitude, longitude.');
-    return {latitude: parts[0], longitude: parts[1]};
+    const text = input.value.trim();
+    const matches = [...text.matchAll(/(-?\d+(?:\.\d+)?)\s*°?\s*([NSEW])?/gi)];
+    if (matches.length < 2) {
+        throw new Error('Enter coordinates as 22.7196, 75.8577 or latitude 22.7196° N and longitude 75.8577° E.');
+    }
+    const coordinate = match => {
+        const number = Math.abs(Number(match[1]));
+        return /[SW]/i.test(match[2] || '') ? -number : Number(match[1]);
+    };
+    const latitude = coordinate(matches[0]); const longitude = coordinate(matches[1]);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180) {
+        throw new Error('The latitude or longitude is outside its valid range.');
+    }
+    return {latitude, longitude};
 }
 
 function useCurrentLocation(originInput) {
@@ -235,6 +250,7 @@ function useCurrentLocation(originInput) {
 
 async function verifyRoute() {
     try {
+        showError('');
         const provider = document.getElementById('routeProvider').value;
         const activity = currentData?.extracted_activities?.find(item => item.event_id === currentQuestion.event_id);
         const routeMode = {

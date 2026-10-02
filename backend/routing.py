@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -141,6 +142,17 @@ class RouteEvidenceService:
             latitude, longitude = value.get("latitude"), value.get("longitude")
         elif isinstance(value, (list, tuple)) and len(value) == 2:
             latitude, longitude = value
+        elif isinstance(value, str):
+            matches = re.findall(r"(-?\d+(?:\.\d+)?)\s*°?\s*([NSEW])?", value, re.I)
+            if len(matches) < 2:
+                raise ValueError(f"{field} must contain latitude and longitude for OSRM")
+            parsed = []
+            for number, hemisphere in matches[:2]:
+                coordinate = float(number)
+                if hemisphere.upper() in {"S", "W"}:
+                    coordinate = -abs(coordinate)
+                parsed.append(coordinate)
+            latitude, longitude = parsed
         else:
             raise ValueError(f"{field} must contain latitude and longitude for OSRM")
         latitude, longitude = float(latitude), float(longitude)
