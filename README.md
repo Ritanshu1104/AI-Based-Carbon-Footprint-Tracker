@@ -20,6 +20,7 @@ Carbon Evidence Lab is a local research prototype for estimating a person's dail
 - A multinomial classifier handles unmatched phrasing and encrypted correction memory learns authenticated corrections.
 - Possible duplicate activities trigger a separate/remove decision before calculation.
 - Local accounts use PBKDF2 password hashing, hashed session tokens, and Fernet-encrypted journal payloads.
+- Users can also sign in with Google OAuth. Google identities receive the same encrypted, per-user journal as local password accounts.
 - Monthly goals, daily trends, ARIMA forecasts, and an explicit rolling fallback are available per user.
 - A reproducible experiment runner compares keyword and hybrid extraction methods.
 - The Flask server hosts both the API and frontend, so the application starts with one command.
@@ -128,6 +129,14 @@ Returns service health, factor version, and session-storage mode.
 ### Authentication
 
 `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, and `GET /api/auth/me` provide local multi-user access. Private endpoints use `Authorization: Bearer <token>`.
+
+Google sign-in uses `/api/auth/google/start` and `/api/auth/google/callback`. Create a Google OAuth 2.0 **Web application** client and add this exact authorized redirect URI for local development:
+
+```text
+http://127.0.0.1:5000/api/auth/google/callback
+```
+
+Copy `.env.example` to `.env`, then set `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET`. Keep `.env` private. Restart Flask after changing it. The app requests only `openid`, `email`, and `profile`; it does not request access to Drive, Gmail, or other Google data.
 
 ### `GET /api/journal` and `POST /api/journal`
 

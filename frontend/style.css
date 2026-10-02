@@ -27,6 +27,8 @@ button:focus-visible, a:focus-visible, summary:focus-visible, textarea:focus-vis
 .account-popover { position: absolute; top: calc(100% + 10px); right: 0; width: min(380px, calc(100vw - 32px)); padding: 20px; background: white; border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); }
 .account-popover p { margin: 5px 0 16px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
 .auth-form { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.google-button { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 11px; color: #24352e; background: white; border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer; font-weight: 700; }.google-button span { color: #4285f4; font-size: 1rem; }.google-button:disabled { opacity: .5; cursor: not-allowed; }
+.auth-divider { grid-column: 1/-1; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .65rem; }.auth-divider::before,.auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .auth-form label { display: grid; gap: 5px; grid-column: 1 / -1; color: var(--muted); font-size: .7rem; font-weight: 600; }
 .auth-form input { width: 100%; padding: 11px 12px; color: var(--ink); background: var(--card-soft); border: 1px solid var(--line); border-radius: 10px; }
 .full { width: 100%; }

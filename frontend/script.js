@@ -483,6 +483,23 @@ async function authenticate(mode) {
     } catch (error) { showError(error.message); }
 }
 
+function authenticateWithGoogle() {
+    showError('');
+    const popup = window.open('/api/auth/google/start', 'carbon-google-auth',
+        'popup=yes,width=520,height=680');
+    if (!popup) showError('Allow pop-ups for this local site to use Google sign-in.');
+}
+
+window.addEventListener('message', async event => {
+    if (event.origin !== window.location.origin || event.data?.type !== 'carbon-google-auth') return;
+    if (event.data.error) return showError(event.data.error);
+    authToken = event.data.token; localStorage.setItem('carbonAuthToken', authToken);
+    signedInUser = event.data.user; updateAuthUi();
+    document.querySelector('.account-menu').open = false;
+    await Promise.all([loadJournal(), loadDashboard()]);
+    if (currentData) renderResult(currentData);
+});
+
 async function restoreAuth() {
     if (!authToken) return updateAuthUi();
     try { signedInUser = (await api('/api/auth/me')).user; }
@@ -493,7 +510,7 @@ async function restoreAuth() {
 function updateAuthUi() {
     document.getElementById('authForm').hidden = Boolean(signedInUser);
     document.getElementById('logoutButton').hidden = !signedInUser;
-    ui.authStatus.textContent = signedInUser ? `Signed in locally as ${signedInUser.username}. Journal records are encrypted.` :
+    ui.authStatus.textContent = signedInUser ? `Signed in as ${signedInUser.username} with ${signedInUser.auth_provider === 'google' ? 'Google' : 'a local account'}. Journal records are encrypted.` :
         'Sign in to save encrypted history and corrections.';
     document.getElementById('accountLabel').textContent = signedInUser ? signedInUser.username : 'Private account';
 }
@@ -569,6 +586,9 @@ async function initialize() {
     try {
         [capabilities, mapsConfig] = await Promise.all([api('/api/capabilities'), api('/api/maps/config')]);
     } catch (error) { showError(error.message); }
+    const googleButton = document.getElementById('googleLoginButton');
+    googleButton.disabled = !capabilities.authentication?.google;
+    if (googleButton.disabled) googleButton.title = 'Add Google OAuth credentials to .env to enable this option.';
     const mapsStatus = document.getElementById('mapsCapability');
     if (capabilities.routing?.google_routes) {
         mapsStatus.innerHTML = '<i></i> Google route verification';
@@ -634,6 +654,7 @@ document.getElementById('saveButton').addEventListener('click', saveCurrentResul
 document.getElementById('exportButton').addEventListener('click', exportAudit);
 document.getElementById('loginButton').addEventListener('click', () => authenticate('login'));
 document.getElementById('registerButton').addEventListener('click', () => authenticate('register'));
+document.getElementById('googleLoginButton').addEventListener('click', authenticateWithGoogle);
 document.getElementById('logoutButton').addEventListener('click', logout);
 document.getElementById('goalButton').addEventListener('click', saveGoal);
 document.getElementById('dashboardMonth').addEventListener('change', loadDashboard);

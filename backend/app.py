@@ -1,10 +1,14 @@
 """Flask API and local web host for the research prototype."""
 
+import json
 import os
+import secrets
 import time
+import urllib.parse
+import urllib.request
 import uuid
 
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, redirect, request, url_for
 from flask_cors import CORS
 from dotenv import load_dotenv
 
@@ -39,6 +43,7 @@ forecaster = FootprintForecaster()
 routes = RouteEvidenceService()
 bill_ocr = BillOcrService()
 sessions = {}
+google_oauth_states = {}
 SESSION_TTL_SECONDS = 60 * 60
 
 
@@ -100,7 +105,89 @@ def capabilities():
                        "correction_memory": "encrypted-local"},
         "electricity_factor": factor_store.records["Electricity"],
         "google_map": {"browser_map_available": bool(os.environ.get("GOOGLE_MAPS_BROWSER_KEY"))},
+        "authentication": {
+            "google": bool(os.environ.get("GOOGLE_OAUTH_CLIENT_ID") and
+                           os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET")),
+            "local_password": True, "encrypted_journal": True,
+        },
     })
+
+
+def _google_redirect_uri():
+    return os.environ.get("GOOGLE_OAUTH_REDIRECT_URI") or url_for(
+        "google_callback", _external=True
+    )
+
+
+@app.get("/api/auth/google/start")
+def google_start():
+    client_id = os.environ.get("GOOGLE_OAUTH_CLIENT_ID")
+    if not client_id or not os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET"):
+        return jsonify({"error": "Google sign-in is not configured"}), 503
+    now = time.time()
+    for key in [key for key, record in google_oauth_states.items()
+                if record["created_at"] < now - 600]:
+        google_oauth_states.pop(key, None)
+    state = secrets.token_urlsafe(32)
+    google_oauth_states[state] = {
+        "created_at": now, "opener_origin": request.host_url.rstrip("/"),
+    }
+    query = urllib.parse.urlencode({
+        "client_id": client_id, "redirect_uri": _google_redirect_uri(),
+        "response_type": "code", "scope": "openid email profile", "state": state,
+        "prompt": "select_account", "access_type": "online",
+    })
+    return redirect(f"https://accounts.google.com/o/oauth2/v2/auth?{query}")
+
+
+@app.get("/api/auth/google/callback")
+def google_callback():
+    state = request.args.get("state", "")
+    state_record = google_oauth_states.pop(state, None)
+    if not state_record or state_record["created_at"] < time.time() - 600:
+        return _oauth_popup({"type": "carbon-google-auth", "error": "Google sign-in session expired"}, 400)
+    if request.args.get("error"):
+        return _oauth_popup({"type": "carbon-google-auth", "error": "Google sign-in was cancelled"},
+                            400, state_record["opener_origin"])
+    try:
+        body = urllib.parse.urlencode({
+            "code": request.args.get("code", ""),
+            "client_id": os.environ["GOOGLE_OAUTH_CLIENT_ID"],
+            "client_secret": os.environ["GOOGLE_OAUTH_CLIENT_SECRET"],
+            "redirect_uri": _google_redirect_uri(), "grant_type": "authorization_code",
+        }).encode("utf-8")
+        token_request = urllib.request.Request("https://oauth2.googleapis.com/token", data=body,
+                                               method="POST")
+        with urllib.request.urlopen(token_request, timeout=15) as response:
+            tokens = json.loads(response.read().decode("utf-8"))
+        from google.auth.transport import requests as google_requests
+        from google.oauth2 import id_token
+        identity = id_token.verify_oauth2_token(
+            tokens["id_token"], google_requests.Request(), os.environ["GOOGLE_OAUTH_CLIENT_ID"]
+        )
+        if not identity.get("email_verified"):
+            raise ValueError("Google email is not verified")
+        login_result = auth.login_google(identity["sub"], identity["email"], identity.get("name"))
+        return _oauth_popup({"type": "carbon-google-auth", **login_result},
+                            target_origin=state_record["opener_origin"])
+    except Exception as error:
+        app.logger.warning("Google sign-in failed: %s", error)
+        return _oauth_popup({"type": "carbon-google-auth", "error": "Google sign-in could not be completed"},
+                            400, state_record["opener_origin"])
+
+
+def _oauth_popup(payload, status=200, target_origin=None):
+    safe_payload = json.dumps(payload).replace("<", "\\u003c")
+    safe_origin = json.dumps(target_origin or request.host_url.rstrip("/"))
+    html = f"""<!doctype html><meta charset=utf-8><title>Google sign-in</title>
+    <p>Returning to Carbon Evidence Lab…</p><script>
+    if (window.opener) window.opener.postMessage({safe_payload}, {safe_origin});
+    window.close();
+    </script>"""
+    response = Response(html, status=status, content_type="text/html; charset=utf-8")
+    response.headers["Content-Security-Policy"] = "default-src 'none'; script-src 'unsafe-inline'"
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.get("/api/maps/config")

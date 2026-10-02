@@ -156,6 +156,18 @@ class ApiTests(unittest.TestCase):
         response = self.client.post("/api/analyze", json={"entries": ["walked"] * 31})
         self.assertEqual(response.status_code, 400)
 
+    def test_google_login_start_uses_state_and_exact_redirect(self):
+        with patch.dict(os.environ, {
+            "GOOGLE_OAUTH_CLIENT_ID": "client-id",
+            "GOOGLE_OAUTH_CLIENT_SECRET": "client-secret",
+            "GOOGLE_OAUTH_REDIRECT_URI": "http://127.0.0.1:5000/api/auth/google/callback",
+        }):
+            response = self.client.get("/api/auth/google/start")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("accounts.google.com/o/oauth2/v2/auth", response.location)
+        self.assertIn("state=", response.location)
+        self.assertIn("redirect_uri=http%3A%2F%2F127.0.0.1%3A5000", response.location)
+
     def test_generic_car_is_clarified_then_completed(self):
         first = self.client.post("/api/analyze", json={"text": "I drove my car 10 km"})
         payload = first.get_json()
@@ -360,6 +372,16 @@ class ProviderAndSecurityTests(unittest.TestCase):
             auth.register("local_user", "long-enough-password")
             login = auth.login("local_user", "long-enough-password")
             self.assertEqual(auth.resolve_token(login["token"])["username"], "local_user")
+
+    def test_google_identity_reuses_account_and_issues_private_token(self):
+        with tempfile.TemporaryDirectory() as directory:
+            auth = AuthRepository(os.path.join(directory, "auth.db"))
+            first = auth.login_google("google-subject-1", "person@example.com", "Person")
+            second = auth.login_google("google-subject-1", "person@example.com", "Person")
+            self.assertEqual(first["user"]["user_id"], second["user"]["user_id"])
+            resolved = auth.resolve_token(second["token"])
+            self.assertEqual(resolved["auth_provider"], "google")
+            self.assertEqual(resolved["username"], "person")
 
     def test_authenticated_correction_memory(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -86,6 +86,16 @@ class AuthRepository:
                     created_at TEXT NOT NULL,
                     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
                 );
+                CREATE TABLE IF NOT EXISTS federated_identities (
+                    provider TEXT NOT NULL,
+                    subject TEXT NOT NULL,
+                    user_id TEXT NOT NULL,
+                    email TEXT,
+                    display_name TEXT,
+                    created_at TEXT NOT NULL,
+                    PRIMARY KEY(provider, subject),
+                    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
+                );
             """)
 
     def register(self, username, password):
@@ -106,7 +116,7 @@ class AuthRepository:
                 )
         except sqlite3.IntegrityError as error:
             raise ValueError("Username already exists") from error
-        return self._public_user(user_id, username)
+        return self._public_user(user_id, username, "local")
 
     def login(self, username, password, hours=12):
         with self._connection() as connection:
@@ -118,16 +128,43 @@ class AuthRepository:
         salt = base64.b64decode(row["salt"])
         if not hmac.compare_digest(row["password_hash"], self._derive(str(password or ""), salt)):
             raise ValueError("Invalid username or password")
+        return self._issue_token(row["user_id"], row["username"], "local", hours)
+
+    def login_google(self, subject, email, display_name=None, hours=12):
+        subject, email = str(subject or "").strip(), str(email or "").strip().lower()
+        if not subject or "@" not in email:
+            raise ValueError("Google did not provide a valid account identity")
+        with self._connection() as connection:
+            row = connection.execute("""
+                SELECT users.user_id, users.username FROM federated_identities
+                JOIN users ON users.user_id = federated_identities.user_id
+                WHERE provider = 'google' AND subject = ?
+            """, (subject,)).fetchone()
+            if row is None:
+                base = re.sub(r"[^a-zA-Z0-9_.-]", "-", email.split("@", 1)[0])[:28] or "google-user"
+                username, suffix = base, 1
+                while connection.execute(
+                        "SELECT 1 FROM users WHERE username = ? COLLATE NOCASE", (username,)).fetchone():
+                    suffix += 1
+                    username = f"{base}-{suffix}"
+                user_id = str(uuid.uuid4())
+                now = dt.datetime.now(dt.timezone.utc).isoformat()
+                connection.execute("INSERT INTO users VALUES (?, ?, ?, ?, ?)",
+                                   (user_id, username, "federated", "", now))
+                connection.execute("INSERT INTO federated_identities VALUES (?, ?, ?, ?, ?, ?)",
+                                   ("google", subject, user_id, email, display_name, now))
+                row = {"user_id": user_id, "username": username}
+        return self._issue_token(row["user_id"], row["username"], "google", hours)
+
+    def _issue_token(self, user_id, username, provider, hours):
         token = secrets.token_urlsafe(32)
         now = dt.datetime.now(dt.timezone.utc)
         expires = now + dt.timedelta(hours=hours)
         with self._connection() as connection:
-            connection.execute(
-                "INSERT INTO auth_tokens VALUES (?, ?, ?, ?)",
-                (self._token_hash(token), row["user_id"], expires.isoformat(), now.isoformat()),
-            )
+            connection.execute("INSERT INTO auth_tokens VALUES (?, ?, ?, ?)",
+                               (self._token_hash(token), user_id, expires.isoformat(), now.isoformat()))
         return {"token": token, "expires_at": expires.isoformat(),
-                "user": self._public_user(row["user_id"], row["username"])}
+                "user": self._public_user(user_id, username, provider)}
 
     def resolve_token(self, token):
         if not token:
@@ -136,11 +173,16 @@ class AuthRepository:
         with self._connection() as connection:
             connection.execute("DELETE FROM auth_tokens WHERE expires_at <= ?", (now,))
             row = connection.execute("""
-                SELECT users.user_id, users.username FROM auth_tokens
+                SELECT users.user_id, users.username,
+                    CASE WHEN EXISTS (
+                        SELECT 1 FROM federated_identities fi
+                        WHERE fi.user_id = users.user_id AND fi.provider = 'google'
+                    ) THEN 'google' ELSE 'local' END AS auth_provider
+                FROM auth_tokens
                 JOIN users ON users.user_id = auth_tokens.user_id
                 WHERE auth_tokens.token_hash = ? AND auth_tokens.expires_at > ?
             """, (self._token_hash(token), now)).fetchone()
-        return self._public_user(row["user_id"], row["username"]) if row else None
+        return self._public_user(row["user_id"], row["username"], row["auth_provider"]) if row else None
 
     def logout(self, token):
         with self._connection() as connection:
@@ -157,5 +199,5 @@ class AuthRepository:
         return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
     @staticmethod
-    def _public_user(user_id, username):
-        return {"user_id": user_id, "username": username}
+    def _public_user(user_id, username, auth_provider="local"):
+        return {"user_id": user_id, "username": username, "auth_provider": auth_provider}
